@@ -30,7 +30,7 @@
 <body>
 <h1 align="center"> Fabflix</h1> <br/>
 <table align="center">
-  <tr> <th><a href="/Fabflix/view/Login.jsp"> Login </a></th> </tr>
+  <tr> <th><a href="/view/Login.jsp"> Login </a></th> </tr>
 </table>
 </body>
 </html>

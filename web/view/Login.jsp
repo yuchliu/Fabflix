@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <h1 align="CENTER">Fabflix Login</h1><br>
-    <form action='/Fabflix/LoginControl' method = 'post'>
+    <form action='/LoginControl' method = 'post'>
     UserEmail:<input type='text' name='email'/><br/>
     Password:<input type='password' name='password'/><br/>
     <input type='submit' value='Login'/><br/>

@@ -13,6 +13,7 @@ public class DBManager {
 		//sql format: select * from 
 		conn = getConnection();
 		try {
+			System.out.println("sql = "+sql);
 			pst = conn.prepareStatement(sql);		
 			rs = pst.executeQuery();
 		} catch (SQLException e) {
