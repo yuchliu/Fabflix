@@ -1,0 +1,36 @@
+body, .input-group-addon {
+    background-color: #e2e2e2;
+}
+
+h1, span:not(.error), i {
+    color: #252526 !important;
+}
+
+.error {
+    font-size: 18px;
+}
+
+.jumbotron {
+    background-color:transparent !important;
+}
+
+.login-header {
+    margin-top: 0;
+    text-align: center;
+    vertical-align: text-top;
+}
+
+.login-form {
+    background-color: white;
+    padding: 40px;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.container-bordered {
+    border: 1px solid #939496;
+    border-bottom: 5px solid #939496;
+}

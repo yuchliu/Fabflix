@@ -27,7 +27,7 @@ public class MovieService {
 		String rowCount = "SELECT count(movies.id)"+
 				 		  " FROM "+(byStar?starTable : (byGenre?genreTable:"movies") )+" " +
 				 		  condition +";";
-		ResultSet rs = DBManager.excecuteQuery(rowCount);
+		ResultSet rs = DBManager.executeQuery(rowCount);
 		int pageNum = 1;
 		try {
 			if (rs.next()) pageNum = (rs.getInt(1)-1)/pageSize + 1;
@@ -46,7 +46,7 @@ public class MovieService {
 							+" FROM "+(byStar?starTable : (byGenre?genreTable:"movies") )+" " 
 							+ condition+" ORDER BY "+clauss.getOrder()
 							+" LIMIT "+pageSize+" OFFSET "+(page-1)*pageSize+";";
-		rs = DBManager.excecuteQuery(movieSelect);
+		rs = DBManager.executeQuery(movieSelect);
 		try {
 			while (rs.next())
 			{
@@ -64,7 +64,7 @@ public class MovieService {
 									"FROM stars_in_movies JOIN stars ON stars_in_movies.star_id = stars.id "+
 									"WHERE stars_in_movies.movie_id = "+movie.getId()+";";
 				
-				rs = DBManager.excecuteQuery(starSelect);
+				rs = DBManager.executeQuery(starSelect);
 				while (rs.next())
 					movie.getStars().add(rs.getString(1)+" "+rs.getString(2));
 				
@@ -72,7 +72,7 @@ public class MovieService {
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
 	
-				rs = DBManager.excecuteQuery(genreSelect);
+				rs = DBManager.executeQuery(genreSelect);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));
 			}
@@ -90,7 +90,7 @@ public class MovieService {
 				+" FROM movies " 
 				+"WHERE movies.id="+ID+";";
 		
-		ResultSet rs = DBManager.excecuteQuery(movieSelect);
+		ResultSet rs = DBManager.executeQuery(movieSelect);
 		Movie movie = new Movie();
 		try {
 			if (rs.next()){
@@ -104,7 +104,7 @@ public class MovieService {
 				String starSelect = "SELECT distinct stars.first_name, stars.last_name "+
 						"FROM stars_in_movies JOIN stars ON stars_in_movies.star_id = stars.id "+
 						"WHERE stars_in_movies.movie_id = "+movie.getId()+";";
-				rs = DBManager.excecuteQuery(starSelect);
+				rs = DBManager.executeQuery(starSelect);
 				while (rs.next())
 					movie.getStars().add(rs.getString(1)+" "+rs.getString(2));
 				
@@ -112,7 +112,7 @@ public class MovieService {
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
 	
-				rs = DBManager.excecuteQuery(genreSelect);
+				rs = DBManager.executeQuery(genreSelect);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));
 				

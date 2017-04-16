@@ -1,32 +1,18 @@
-<%@ page language="java" import="java.util.*,com.lyc.domain.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*,domain.*" pageEncoding="ISO-8859-1"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 Star star = (Star)request.getAttribute("star");
 LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>SingleStar</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
   </head>
   
   <body>
+  	<jsp:include page="/view/partial/Header.jsp" />
     <h1><%=star.getName()%></h1><br>
-    <input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
     Birthday :<%=star.getDob()%><br>
     Star ID :<%=star.getId()%>><br>
     <img alt="Url Expired!" src="<%=star.getPhotoUrl()%>"/><br>
@@ -57,5 +43,6 @@ LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
     		}
     	 %>
     </table>
+	<jsp:include page="/view/partial/Scripts.jsp" />
   </body>
 </html>

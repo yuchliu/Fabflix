@@ -30,7 +30,7 @@ public class StarControl extends HttpServlet {
 					+"last_name = \""+starName[1]+"\";";
 		
 		System.out.println(sql);
-		ResultSet rs = DBManager.excecuteQuery(sql);
+		ResultSet rs = DBManager.executeQuery(sql);
 		Star star = new Star();
 		try {
 			if (rs.next()){

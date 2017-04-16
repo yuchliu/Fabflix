@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Lyc
-  Date: 2017/4/14
-  Time: 15:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
   String path = request.getContextPath();
@@ -13,25 +6,55 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>
-  <base href="<%=basePath%>">
+  <head>
+    <base href="<%=basePath%>">
+    <title>Fabflix</title>
+    <link rel="stylesheet" href="/Fabflix/sources/external/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/Fabflix/sources/external/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/Fabflix/sources/css/index.css">
+  </head>
 
-  <title>Fabflix</title>
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
-  <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-  <meta http-equiv="description" content="This is my page">
-  <!--
-  <link rel="stylesheet" type="text/css" href="styles.css">
-  -->
-</head>
+  <body>
 
-<body>
-<h1 align="center"> Fabflix</h1> <br/>
-<table align="center">
-  <tr> <th><a href="/view/Login.jsp"> Login </a></th> </tr>
-</table>
-</body>
+    <div class="container">
+      <div class="jumbotron"></div>
+    </div>
+    <%if ((request.getAttribute("error")!=null && (boolean) request.getAttribute("error"))){%>
+      <div class="container col-xs-1 col-centered" style="width:425px;text-align: center;">
+        <span class="error text-danger"><strong>Error:</strong> Invalid Email or Wrong Password</span>
+      </div>
+      <br />
+    <%}%>
+    <div class="login-form container col-xs-1 col-centered container-bordered" style="width:425px;">
+      <div class="form-group">
+        <h1 class="login-header">Fabflix Login</h1>
+      </div>
+      <br />
+      <form action='/Fabflix/LoginControl' method='post'>
+        <div class="form-group">
+          <label for="email-field">Email Address:</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+            <input name='email' id="email-field" type="email" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password-field">Password:</label>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-id-badge" aria-hidden="true"></i></span>
+            <input name='password' id="password-field" type="password" class="form-control" />
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <button class="btn btn-primary btn-lg btn-block login-button" type='submit'>Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/Fabflix/sources/external/jquery/jquery-3.2.1.js"></script>
+    <script src="/Fabflix/sources/external/bootstrap/js/bootstrap.js"></script>
+
+  </body>
 </html>
 

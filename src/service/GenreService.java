@@ -9,7 +9,7 @@ import doa.DBManager;
 public class GenreService {
 	public static LinkedList<String> getGenres(){
 		String sql = "SELECT name FROM genres;";
-		ResultSet rs = DBManager.excecuteQuery(sql);
+		ResultSet rs = DBManager.executeQuery(sql);
 		
 		LinkedList<String> genreSet = new LinkedList<String>();
 		try {

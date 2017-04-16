@@ -1,32 +1,16 @@
-<%@ page import="java.util.*,com.lyc.service.*" pageEncoding="ISO-8859-1"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
+<%@ page import="java.util.*,service.*" pageEncoding="ISO-8859-1"%>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>Browse Movie</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
   </head>
   
-  <body style="background-color:PowderBlue;">
+  <body>
+  	<jsp:include page="/view/partial/Header.jsp" />
   	<h1 align="center">Browse Movie</h1>
-  	<input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
-    <font color=#8A916F><a href="/Fabflix/BrowseControl?genre=all">Browse Movie By Title</a></font><br/><hr/>
-    <font color=#8A916F><b>Movie Genre</b></font>
+    <span color=#8A916F><a href="/Fabflix/BrowseControl?genre=all">Browse Movie By Title</a></span><br/><hr/>
+    <span color=#8A916F><b>Movie Genre</b></span>
     <% LinkedList<String> genreSet = GenreService.getGenres(); %>
     <table>
     	<% int row = (genreSet.size()-1) /5 +1;
@@ -50,6 +34,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
     	 %>
     </table>
-    
+	<jsp:include page="/view/partial/Scripts.jsp" />
   </body>
 </html>

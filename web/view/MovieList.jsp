@@ -1,7 +1,5 @@
-<%@ page import="java.util.*,com.lyc.domain.*,com.lyc.controller.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,domain.*,controller.*" pageEncoding="ISO-8859-1"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
 int p = Integer.parseInt(request.getParameter("page"));
 int pageNum = (int)request.getAttribute("pageNum");
@@ -9,25 +7,15 @@ int pageSize = (int)request.getAttribute("pageSize");
 Clauss clauss = (Clauss)request.getAttribute("clauss");
 session.setAttribute("clauss", clauss);
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<!DOCTYPE html>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
     <title>Movie List</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
   </head>
   
-  <body style="background-color:PowderBlue;">
+  <body>
+  	<jsp:include page="/view/partial/Header.jsp" />
     <h1 align="center">Movie List</h1> <br/>
     <form action="/Fabflix/SearchControl?reorder=yes" method="post">
     	<table><tr><td width=100>Order By</td>
@@ -44,7 +32,6 @@ session.setAttribute("clauss", clauss);
     	</tr>
     	</table>
     </form>
-    <input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
     <hr/>
     <% if (result.size() == 0) out.println("<font size=100 align=\"center\">No Result!</font>"); %>
     <table>
@@ -73,5 +60,6 @@ session.setAttribute("clauss", clauss);
     	<td><a href="/Fabflix/SearchControl?pageSize=<%=pageSize%>&page=<%=p+1%>">Next</a></td> <%}%>
     	</tr>
     </table>
+	<jsp:include page="/view/partial/Scripts.jsp" />
   </body>
  </html>
