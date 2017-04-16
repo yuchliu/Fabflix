@@ -43,7 +43,7 @@ public class LoginControl extends HttpServlet {
 					user.setCc_id(rs.getString(3));
 					request.getSession().setAttribute("User", user);
 					request.getSession().setAttribute("shopCart", new LinkedHashMap<String,Integer>());
-					request.getRequestDispatcher("/BrowseControl").forward(request, response);
+					request.getRequestDispatcher("/view/MainPage.jsp").forward(request, response);
 				}
 				else
 				{

@@ -10,7 +10,7 @@
 	<div class="container">
 		<jsp:include page="/view/partial/Header.jsp" />
 		<h1 align="center">Browse Movie</h1>
-		<span color=#8A916F><a href="/Fabflix/BrowseControl?genre=all">Browse Movie By Title</a></span><br/><hr/>
+		<span color=#8A916F><a href="/BrowseControl?genre=all">Browse Movie By Title</a></span><br/><hr/>
 		<span color=#8A916F><b>Movie Genre</b></span>
 		<% LinkedList<String> genreSet = GenreService.getGenres(); %>
 		<table>
@@ -26,7 +26,7 @@
 							if (iter.hasNext()) genre = iter.next();
 							else break;
 						%>
-							<td align="left"> <a href="/Fabflix/BrowseControl?genre=<%=genre%>"><%=genre%></a></td>
+							<td align="left"> <a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></td>
 						<%
 						}
 					 %>

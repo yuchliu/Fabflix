@@ -23,14 +23,18 @@
     <title>MainPage</title>
 </head>
 <body>
-    <h1 align="CENTER">Welcome <% if (TestAndSet(firstVisit) )
-                                     { %>, new user
-        <% }else {%>back <%}%> !</h1>
-    <h2 align="RIGHT"> <%out.println(email);%></h2>
-    <form>
-        <a href="/view/Search.jsp"> Search Movie </a><br/>
-        <a href="/view/Browse.jsp"> Browse Movie </a><br/>
-        <a href="/WEB-INF/Test.html"> Test </a><br/>
-    </form>
+    <div class="container">
+        <jsp:include page="/view/partial/Header.jsp" />
+        <h1 align="CENTER">Welcome <% if (TestAndSet(firstVisit) )
+                                         { %>, new user
+            <% }else {%>back <%}%> !</h1>
+        <h2 align="RIGHT"> <%out.println(email);%></h2>
+        <form>
+            <a href="/view/Search.jsp"> Search Movie </a><br/>
+            <a href="/view/Browse.jsp"> Browse Movie </a><br/>
+            <a href="/WEB-INF/Test.html"> Test </a><br/>
+        </form>
+        <jsp:include page="/view/partial/Scripts.jsp" />
+    </div>
 </body>
 </html>

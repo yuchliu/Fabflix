@@ -37,7 +37,7 @@ public class CheckoutControl extends HttpServlet {
 			e.printStackTrace();
 		} finally{
 			DBManager.close();
-			response.sendRedirect("/Fabflix/view/Confirm.jsp?valid="+valid);
+			response.sendRedirect("/view/Confirm.jsp?valid="+valid);
 		}
 	}
 

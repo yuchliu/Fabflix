@@ -10,9 +10,9 @@
   <head>
     <base href="<%=basePath%>">
     <title>Fabflix</title>
-    <link rel="stylesheet" href="/Fabflix/sources/external/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="/Fabflix/sources/external/fontawesome/css/font-awesome.css">
-    <link rel="stylesheet" href="/Fabflix/sources/css/index.css">
+    <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/sources/css/index.css">
   </head>
 
   <body>
@@ -36,7 +36,7 @@
         <h1 class="login-header">Fabflix Login</h1>
       </div>
       <br />
-      <form action='/Fabflix/LoginControl' method='post'>
+      <form action='/LoginControl' method='post'>
         <div class="form-group">
           <label for="email-field">Email Address:</label>
           <div class="input-group">
@@ -58,8 +58,8 @@
       </form>
     </div>
 
-    <script src="/Fabflix/sources/external/jquery/jquery-3.2.1.js"></script>
-    <script src="/Fabflix/sources/external/bootstrap/js/bootstrap.js"></script>
+    <script src="/sources/external/jquery/jquery-3.2.1.js"></script>
+    <script src="/sources/external/bootstrap/js/bootstrap.js"></script>
 
   </body>
 </html>

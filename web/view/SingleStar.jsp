@@ -35,7 +35,7 @@ LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
 								}
 							else break;
 						%>
-							<td align="left"> <a href="/Fabflix/MovieControl?id=<%=movie.getId()%>"><%=movieName%></a></td>
+							<td align="left"> <a href="/MovieControl?id=<%=movie.getId()%>"><%=movieName%></a></td>
 						<%
 						}
 					 %>

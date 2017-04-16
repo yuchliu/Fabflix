@@ -11,7 +11,7 @@
 		<jsp:include page="/view/partial/Header.jsp" />
 		<h1 align="center"> <font size=10>Search Movie</font> </h1><br/>
 		<hr/>
-		<form action="/Fabflix/SearchControl" method="post">
+		<form action="/SearchControl" method="post">
 				<a style="font-family:verdana;font-size:30px;color:#EE9611">Title</a><br>
 			<input type="text" name="title" value=""><br/>
 			<a style="font-family:verdana;font-size:30px;color:#EE9611">Year</a><br>

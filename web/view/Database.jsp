@@ -8,7 +8,7 @@
 <html>
 <head>
     <title>Databases</title>
-    <link rel="stylesheet" type="text/css" href="/Fabflix/sources/external/datatables/datatables.css"/>
+    <link rel="stylesheet" type="text/css" href="/sources/external/datatables/datatables.css"/>
 </head>
 <body style="background-color: white;">
     <div class="container" style="width:80%; margin: auto;">
@@ -34,7 +34,7 @@
     </div>
 
     <jsp:include page="/view/partial/Scripts.jsp" />
-    <script type="text/javascript" src="/Fabflix/sources/external/datatables/datatables.js"></script>
+    <script type="text/javascript" src="/sources/external/datatables/datatables.js"></script>
     <script>
         $(function() {
             $("#database-table").dataTable({
