@@ -22,7 +22,7 @@ public class LoginControl extends HttpServlet {
 		if (request.getParameter("logout")!=null && "yes".equals(request.getParameter("logout")))
 		{
 			request.getSession().removeAttribute("User");
-			response.sendRedirect("/Fabflix/view/Login/jsp");
+			response.sendRedirect("/Fabflix/view/Login.jsp");
 		}
 		else{
 		String email = request.getParameter("email");
@@ -43,7 +43,7 @@ public class LoginControl extends HttpServlet {
 				user.setCc_id(rs.getString(3));
 				request.getSession().setAttribute("User", user);
 				request.getSession().setAttribute("shopCart", new LinkedHashMap<String,Integer>());
-				request.getRequestDispatcher("/MainPage").forward(request, response);
+				request.getRequestDispatcher("/view/MainPage.jsp").forward(request, response);
 			}
 			
 			else

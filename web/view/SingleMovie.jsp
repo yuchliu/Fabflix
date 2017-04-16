@@ -1,4 +1,4 @@
-<%@ page import="java.util.*,com.lyc.domain.Movie" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,domain.Movie" pageEncoding="ISO-8859-1"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
