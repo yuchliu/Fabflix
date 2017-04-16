@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <h1 align="center"> <font size=10>Search Movie</font> </h1><br/>
     <input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
     <hr/>
-    <form action="/Fabflix/SearchControl" method="post">
+    <form action="/SearchControl" method="post">
         	<a style="font-family:verdana;font-size:30px;color:#EE9611">Title</a><br>
     	<input type="text" name="title" value=""><br/>
     	<a style="font-family:verdana;font-size:30px;color:#EE9611">Year</a><br>

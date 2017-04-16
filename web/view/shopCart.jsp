@@ -25,9 +25,9 @@ LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String,Integer>) session
   
   <body style="background-color:PowderBlue;">
     <h1 align="center">Shopping Cart</h1> <br/>
-    <input type ="button" value="Clear Cart" onclick="window.location.href='/Fabflix/ShopControl?clear=true'"/>
-    <input type ="button" value="Check Out" onclick="window.location.href='/Fabflix/view/CheckOut.jsp'"/>
-    <input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
+    <input type ="button" value="Clear Cart" onclick="window.location.href='/ShopControl?clear=true'"/>
+    <input type ="button" value="Check Out" onclick="window.location.href='/view/CheckOut.jsp'"/>
+    <input type ="button" value="Log Out" onclick="window.location.href='/LoginControl?logout=true'"/>
     <hr/>
     <table align="center">
     <tr><td width=200>Title</td><td width=200>ID</td><td width=200>Number</td></tr>

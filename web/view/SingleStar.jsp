@@ -26,7 +26,7 @@ LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
   
   <body>
     <h1><%=star.getName()%></h1><br>
-    <input type ="button" value="Log Out" onclick="window.location.href='/Fabflix/LoginControl?logout=true'"/>
+    <input type ="button" value="Log Out" onclick="window.location.href='/LoginControl?logout=true'"/>
     Birthday :<%=star.getDob()%><br>
     Star ID :<%=star.getId()%>><br>
     <img alt="Url Expired!" src="<%=star.getPhotoUrl()%>"/><br>
@@ -48,7 +48,7 @@ LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
     						}
     					else break;
     				%>	
-    					<td align="left"> <a href="/Fabflix/MovieControl?id=<%=movie.getId()%>"><%=movieName%></a></td>
+    					<td align="left"> <a href="/MovieControl?id=<%=movie.getId()%>"><%=movieName%></a></td>
     				<%
     				}
     			 %>
