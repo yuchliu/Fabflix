@@ -27,7 +27,7 @@ public class CheckoutControl extends HttpServlet {
 		String sql = "SELECT first_name, last_name, expiration "
 				   + "FROM creditcards WHERE id = \""+cc_id+"\"";
 		
-		ResultSet rs = DBManager.excecuteQuery(sql);
+		ResultSet rs = DBManager.executeQuery(sql);
 		
 		try {
 			if (rs.next()){

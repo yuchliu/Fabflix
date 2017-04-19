@@ -3,13 +3,13 @@ package doa;
 import java.sql.*;
 
 public class DBManager {
+
 	private static Connection conn = null;
 	private static PreparedStatement pst = null;
 	private static ResultSet rs = null;
-	
-	
-	
-	public static ResultSet excecuteQuery(String sql){
+
+	public static ResultSet executeQuery(String sql)
+	{
 		//sql format: select * from 
 		conn = getConnection();
 		try {
@@ -27,14 +27,26 @@ public class DBManager {
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "root", "123456");
+			conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "mytestuser", "mypassword");
 			return true;
 		}
+		catch (SQLException e)
+		{
+			System.err.println("Message: " + e.getMessage());
+			Throwable t = e.getCause();
+			while(t != null)
+			{
+				System.out.println("Cause: " + t);
+				t = t.getCause();
+			}
+		}
 		catch (Exception e) 
-		{e.printStackTrace();
-			conn = null;
-			return false;
-		}		
+		{
+			e.printStackTrace();
+		}
+
+		conn = null;
+		return false;
 	}
 	
 	public static Connection getConnection()
