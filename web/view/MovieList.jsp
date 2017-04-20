@@ -1,67 +1,163 @@
 <%@ page import="java.util.*,domain.*,controller.*" pageEncoding="ISO-8859-1"%>
 <%
-LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
-int p = Integer.parseInt(request.getParameter("page"));
-int pageNum = (int)request.getAttribute("pageNum");
-int pageSize = (int)request.getAttribute("pageSize");
-Clauss clauss = (Clauss)request.getAttribute("clauss");
-session.setAttribute("clauss", clauss);
+	int pageTotal = (int)request.getAttribute("pageTotal");
+	int pageNum = (int)request.getAttribute("pageNum");
+	int pageSize = (int)request.getAttribute("pageSize");
 %>
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Movie List</title>
-  </head>
-  
-  <body>
-	  <div class="container">
-		<jsp:include page="/view/partial/Header.jsp" />
-		<h1 align="center">Movie List</h1> <br/>
-		<form action="/SearchControl?reorder=yes" method="post">
-			<table><tr><td width=100>Order By</td>
-			<td width=100><select name="order">
-				<option value="movies.id">Movie ID</option>
-				<option value="movies.year">Year</option>
-				<option value="movies.title">Title</option>
-			</select></td>
-			<td width=100><select name="orderType">
-				<option value=" asc">Ascending</option>
-				<option value=" desc">Descending</option>
-			</select></td>
-			<td width=150><input type='submit' value='Go'/></td>
-			</tr>
-			</table>
-		</form>
-		<hr/>
-		<% if (result.size() == 0) out.println("<font size=100 align=\"center\">No Result!</font>"); %>
-		<table>
-			<% for(Movie movie:result){
-					%><tr>
-					<a href="/MovieControl?id=<%=movie.getId()%>"><%=movie.getTitle()%></a><%=" "+movie.getYear()%><br/>
-					Genres : <%for(String genre:movie.getGenre())out.println("<a href=\"/BrowseControl?genre="+genre+"\">"+genre+"\t</a>");%><br/>
-					Stars : <%for(String star:movie.getStars())out.println("<a href=\"/StarControl?star="+star+"\">"+star+"\t</a>");%><br/>
-					Director :<%=movie.getDirector()%><br/>
-					<img height=200 src=<%=movie.getBannerUrl()%> alt=http://simpleicon.com/wp-content/uploads/movie-1.png><br/>
-					Movie ID :<%=movie.getId() %>
-					<input type ="button" value="Add to Cart" onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'"/>
-					</tr><hr/><br/>
-			<% } %>
-		</table>
-		<table align="center">
-			<tr>
-			<td><% if(p!=1){ %>
-			<a href="/SearchControl?pageSize=<%=pageSize%>&page=<%=p-1%>">Prev</a></td> <%}%>
-			<% for( int i=1; i!=pageNum+1; ++i )
-				out.println("<td>"+(i==p?i:
-				"<a href=/SearchControl?pageSize="+pageSize+"&page="+i+">"+i+"</a>")
-				+"</td>");
-			%>
-			<% if(p!=pageNum){ %>
-			<td><a href="/SearchControl?pageSize=<%=pageSize%>&page=<%=p+1%>">Next</a></td> <%}%>
-			</tr>
-		</table>
-		<jsp:include page="/view/partial/Scripts.jsp" />
-	  </div>
-  </body>
- </html>
+<head>
+	<title>Movie List</title>
+</head>
+
+<body>
+<div class="container">
+	<jsp:include page="/view/partial/Header.jsp" />
+	<jsp:include page="/view/partial/Scripts.jsp" />
+	<div class="row">
+		<div class="col-sm-12 col-md-6">
+			<div id="parameters-form" class="form-inline" style="margin-left: 10px !important;">
+				<div class="form-group">
+					<button id="movie-id-sort" class="btn btn-default">
+						Movie ID&nbsp;
+						<i id="active-toggle-icon" class="glyphicon glyphicon-chevron-down"></i>
+					</button>
+				</div>
+				<div class="form-group">
+					<button id="movie-year-sort" class="btn btn-default">Year&nbsp;</button>
+				</div>
+				<div class="form-group">
+					<button id="movie-title-sort" class="btn btn-default">Title&nbsp;</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6">
+			<ul class="page-selector pagination pull-right" style="margin-right: 10px !important;"></ul>
+		</div>
+	</div>
+	<div id="search-results">
+		<jsp:include page="/view/partial/MovieList.jsp" />
+	</div>
+	<ul class="page-selector pagination pull-right" style="margin-right: 10px !important;"></ul>
+</div>
+</body>
+
+<script>
+
+    $(function() {
+
+        var pageTotal = <%= pageTotal %>;
+        var pageNum = <%= pageNum %>;
+        var pageSize = <%= pageSize %>;
+        var sortToggle = "asc", yearToggle, titleToggle;
+        var params = {};
+
+        $(".page-selector").twbsPagination({
+            visiblePages: 7,
+            totalPages: pageTotal,
+            onPageClick: function(ev, page) {
+                refreshMovieList(page);
+            }
+        });
+
+        function refreshMovieList(newPage) {
+
+            pageNum = newPage;
+			var data = $.extend({
+                newPage: true,
+                pageNum: newPage,
+                pageSize: pageSize
+            }, params);
+
+            $.ajax({
+                method: "GET",
+                url: "/SearchControl",
+                data: data,
+                success: function(page) {
+                    $("#search-results").html(page);
+                },
+                error: function() {
+                    $("#search-results").html("<span>Error loading data. Please refresh the page.</span>");
+                }
+            });
+
+        }
+
+        if (pageNum === 1) {
+            $("#prev-button").hide();
+            $("#next-button").show();
+        } else if (pageNum === pageTotal) {
+            $("#prev-button").show();
+            $("#next-button").hide();
+        } else {
+            $("#prev-button").show();
+            $("#next-button").show();
+        }
+
+        $(".backup-image").on("error", function() {
+            $(this).attr("src", "http://simpleicon.com/wp-content/uploads/movie-1.png");
+        });
+
+		$("#movie-id-sort").on("click", function() {
+
+		    sortToggle = (sortToggle == null || sortToggle == "desc") ? "asc" : "desc";
+		    yearToggle = titleToggle = null;
+
+		    params = {
+		        order: "movies.id",
+                orderType: sortToggle
+		    };
+
+            $("#active-toggle-icon").removeClass()
+                .addClass("glyphicon " + (sortToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));
+
+            $("#active-toggle-icon").detach().appendTo($("#movie-id-sort"));
+            $(".page-selector").twbsPagination({ currentPage: 1 });
+            refreshMovieList(1);
+
+		});
+
+        $("#movie-year-sort").on("click", function() {
+
+            yearToggle = (yearToggle == null || yearToggle == "desc") ? "asc" : "desc";
+            sortToggle = titleToggle = null;
+
+            params = {
+                order: "movies.year",
+                orderType: yearToggle
+            };
+
+            $("#active-toggle-icon").removeClass()
+                .addClass("glyphicon " + (yearToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));
+
+            $("#active-toggle-icon").detach().appendTo($("#movie-year-sort"));
+            $(".page-selector").twbsPagination({ currentPage: 1 });
+            refreshMovieList(1);
+
+        });
+
+        $("#movie-title-sort").on("click", function() {
+
+            titleToggle = (titleToggle == null || titleToggle == "desc") ? "asc" : "desc";
+            yearToggle = sortToggle = null;
+
+            params = {
+                order: "movies.title",
+                orderType: titleToggle
+            };
+
+            $("#active-toggle-icon").removeClass()
+                .addClass("glyphicon " + (titleToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));
+
+            $("#active-toggle-icon").detach().appendTo($("#movie-title-sort"));
+            $(".page-selector").twbsPagination({ currentPage: 1 });
+            refreshMovieList(1);
+
+        });
+
+    });
+
+</script>
+
+</html>

@@ -12,17 +12,16 @@ public class BrowseControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String genre = request.getParameter("genre");
+
 		String star = request.getParameter("star");
-		Clauss clauss = new Clauss();
-		if (!"all".equals(genre) && genre!=null )clauss.setGenre(genre);
-		if (star!=null){
+		if (star != null){
 			String []starName = star.split(" ");
-			clauss.setFirstName(starName[0]);
-			clauss.setLastName(starName[1]);
+			request.setAttribute("firstName", starName[0]);
+			request.setAttribute("lastName", starName[1]);
 		}
-		request.getSession().setAttribute("clauss", clauss);
+
 		request.getRequestDispatcher("/SearchControl").forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

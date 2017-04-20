@@ -17,49 +17,67 @@ public class SearchControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		// Build Clauss object
 		Clauss clauss = null;
-		
-		if (request.getParameter("refresh")!=null && "yes".equals(request.getParameter("refresh")))
-		{
+
+		if(request.getParameter("newPage") != null) {
+			clauss = (Clauss) request.getSession().getAttribute("clauss");
+
+			String order = request.getParameter("order");
+			String orderType = request.getParameter("orderType");
+
+			if(order != null && orderType != null) clauss.setOrder(order + " " + orderType);
+
+		} else {
+
+			// Clauss search parameters
+			String order = request.getParameter("order");
+			String title = request.getParameter("title");
+			String year = request.getParameter("year");
+			String director = request.getParameter("director");
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String genre = request.getParameter("genre");
+
+			// Set parameters
 			clauss = new Clauss();
-			clauss.setTitle(request.getParameter("title"));
-			clauss.setYear(request.getParameter("year"));
-			clauss.setDirector(request.getParameter("director"));
-			clauss.setFirstName(request.getParameter("firstName"));
-			clauss.setLastName(request.getParameter("lastName"));
-			
+			if(order != null) clauss.setOrder(order);
+			if(title != null) clauss.setTitle(title);
+			if(year != null) clauss.setYear(year);
+			if(director != null) clauss.setDirector(director);
+			if(firstName != null) clauss.setFirstName(firstName);
+			if(lastName != null) clauss.setLastName(lastName);
+			if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
+
 		}
-		else if (request.getParameter("reorder")!=null && "yes".equals(request.getParameter("reorder"))){
-			System.out.println("order="+request.getParameter("order")+request.getParameter("orderType"));
-			clauss = (Clauss) request.getSession().getAttribute("clauss");
-			clauss.setOrder(request.getParameter("order")+request.getParameter("orderType"));
-		}
-		
-		else{
-			clauss = (Clauss) request.getSession().getAttribute("clauss");
-		}
-		String pageInfo = request.getParameter("page"); 
-		String pageSizeInfo = request.getParameter("pageSize");
-		
-		int page = pageInfo==null ? 1 : Integer.parseInt(pageInfo);
-		int pageSize = pageSizeInfo==null ? 5 :Integer.parseInt(pageSizeInfo);
-		
+
+		// Pagination parameters
+		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
+		int pageSize = request.getParameter("pageSize") == null ? 10 : Integer.parseInt(request.getParameter("pageSize"));
+
 		MovieService movieService = new MovieService();
-		LinkedList<Movie> item = movieService.getMovieByPage(clauss,page,pageSize);
-		int pageNum = item.getFirst().getId();
+		LinkedList<Movie> items = movieService.getMovieByPage(clauss, pageNum, pageSize);
+
+		request.setAttribute("pageTotal", items.getFirst().getId());
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("pageSize", pageSize);
-		item.removeFirst();
-		request.setAttribute("result", item);
+
+		items.removeFirst();
+		request.setAttribute("result", items);
 		request.setAttribute("clauss", clauss);
-		if (request.getParameter("forStar")!=null && "true".equals(request.getParameter("forStar")))
-		{
+
+		if (request.getParameter("forStar") != null && "true".equals(request.getParameter("forStar"))) {
 			request.setAttribute("star", request.getAttribute("star"));
 			request.getRequestDispatcher("/view/SingleStar.jsp").forward(request, response);
 		}
-		else{
-			request.getRequestDispatcher("/view/MovieList.jsp?page="+page).forward(request, response);;
+		else if (request.getParameter("newPage") != null) {
+			request.getRequestDispatcher("/view/partial/MovieList.jsp").forward(request, response);
 		}
+		else {
+			request.getRequestDispatcher("/view/MovieList.jsp").forward(request, response);;
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

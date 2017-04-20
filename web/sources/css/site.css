@@ -1,3 +1,15 @@
 body {
-    background-color: powderblue;
+    padding-bottom: 10px;
+}
+
+.movie-list-item .movie-list-item-wrapper {
+    background-color: #f7f8f9;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eaedef;
+}
+
+ul.page-selector {
+    margin: 0 !important;
 }
