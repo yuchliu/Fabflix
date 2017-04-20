@@ -1,5 +1,6 @@
 <%@ page import="java.util.*,domain.*,controller.*" pageEncoding="ISO-8859-1"%>
 <%
+	Clauss clauss = (Clauss)request.getAttribute("clauss");
 	int pageTotal = (int)request.getAttribute("pageTotal");
 	int pageNum = (int)request.getAttribute("pageNum");
 	int pageSize = (int)request.getAttribute("pageSize");
@@ -51,7 +52,15 @@
         var pageNum = <%= pageNum %>;
         var pageSize = <%= pageSize %>;
         var sortToggle = "asc", yearToggle, titleToggle;
-        var params = {};
+        var params = {
+            order: "<%= clauss.getOrder() %>",
+			title: "<%= clauss.getTitle() %>",
+			year: "<%= clauss.getYear() %>",
+			director: "<%= clauss.getDirector() %>",
+			firstName: "<%= clauss.getFirstName() %>",
+			lastName: "<%= clauss.getLastName() %>",
+			genre: "<%= clauss.getGenre() %>"
+		};
 
         $(".page-selector").twbsPagination({
             visiblePages: 7,
@@ -104,10 +113,10 @@
 		    sortToggle = (sortToggle == null || sortToggle == "desc") ? "asc" : "desc";
 		    yearToggle = titleToggle = null;
 
-		    params = {
+		    $.extend(params, {
 		        order: "movies.id",
                 orderType: sortToggle
-		    };
+		    });
 
             $("#active-toggle-icon").removeClass()
                 .addClass("glyphicon " + (sortToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));
@@ -123,10 +132,10 @@
             yearToggle = (yearToggle == null || yearToggle == "desc") ? "asc" : "desc";
             sortToggle = titleToggle = null;
 
-            params = {
+            $.extend(params, {
                 order: "movies.year",
                 orderType: yearToggle
-            };
+            });
 
             $("#active-toggle-icon").removeClass()
                 .addClass("glyphicon " + (yearToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));
@@ -142,10 +151,10 @@
             titleToggle = (titleToggle == null || titleToggle == "desc") ? "asc" : "desc";
             yearToggle = sortToggle = null;
 
-            params = {
+            $.extend(params, {
                 order: "movies.title",
                 orderType: titleToggle
-            };
+            });
 
             $("#active-toggle-icon").removeClass()
                 .addClass("glyphicon " + (titleToggle == "asc" ? "glyphicon-chevron-down" : "glyphicon-chevron-up"));

@@ -21,36 +21,26 @@ public class SearchControl extends HttpServlet {
 		// Build Clauss object
 		Clauss clauss = null;
 
-		if(request.getParameter("newPage") != null) {
-			clauss = (Clauss) request.getSession().getAttribute("clauss");
+		// Clauss search parameters
+		String order = request.getParameter("order");
+		String orderType = request.getParameter("orderType");
+		String title = request.getParameter("title");
+		String year = request.getParameter("year");
+		String director = request.getParameter("director");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String genre = request.getParameter("genre");
 
-			String order = request.getParameter("order");
-			String orderType = request.getParameter("orderType");
-
-			if(order != null && orderType != null) clauss.setOrder(order + " " + orderType);
-
-		} else {
-
-			// Clauss search parameters
-			String order = request.getParameter("order");
-			String title = request.getParameter("title");
-			String year = request.getParameter("year");
-			String director = request.getParameter("director");
-			String firstName = request.getParameter("firstName");
-			String lastName = request.getParameter("lastName");
-			String genre = request.getParameter("genre");
-
-			// Set parameters
-			clauss = new Clauss();
-			if(order != null) clauss.setOrder(order);
-			if(title != null) clauss.setTitle(title);
-			if(year != null) clauss.setYear(year);
-			if(director != null) clauss.setDirector(director);
-			if(firstName != null) clauss.setFirstName(firstName);
-			if(lastName != null) clauss.setLastName(lastName);
-			if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
-
-		}
+		// Set parameters
+		clauss = new Clauss();
+		if(order != null) clauss.setOrder(order);
+		if(order != null && orderType != null) clauss.setOrder(order + " " + orderType);
+		if(title != null) clauss.setTitle(title);
+		if(year != null) clauss.setYear(year);
+		if(director != null) clauss.setDirector(director);
+		if(firstName != null) clauss.setFirstName(firstName);
+		if(lastName != null) clauss.setLastName(lastName);
+		if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
@@ -62,6 +52,7 @@ public class SearchControl extends HttpServlet {
 		request.setAttribute("pageTotal", items.getFirst().getId());
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("clauss", clauss);
 
 		items.removeFirst();
 		request.setAttribute("result", items);
