@@ -6,17 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" import="domain.User"%>
-<%! private static boolean firstVisit = true;
 
-    private boolean TestAndSet (boolean c)
-    {
-        boolean temp = c;
-        c = false;
-        return temp;
+<%
+    if (session.getAttribute("User")==null){
+        request.setAttribute("error", true);
+        request.setAttribute("errInfo","Please Login!");
+        request.getRequestDispatcher("/").forward(request, response);
+        return;
     }
-%>
-
-<% User user = (User) request.getSession().getAttribute("User");
+    else System.out.println("User: "+session.getAttribute("User"));
+    User user = (User) request.getSession().getAttribute("User");
     String email = user.getEmail();%>
 <html>
 <head>
@@ -33,10 +32,7 @@
                 <div class="col-lg-12">
                     <img class="img-responsive" src="img/profile.png" alt="">
                     <div class="intro-text">
-                        <h1 class="name">Welcome <% if (TestAndSet(firstVisit) )
-                                                    { %>, new user
-                                                <% }else {%>back <%}%> !
-                        </h1>
+                        <h1 class="name">Welcome! </h1>
                         <hr class="star-light">
                         <span class="skills"><%=email%></span>
                     </div>

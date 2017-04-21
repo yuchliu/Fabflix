@@ -1,6 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
-LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String,Integer>) session.getAttribute("shopCart");
+    if (session.getAttribute("User")==null){
+        request.setAttribute("error", true);
+        request.setAttribute("errInfo","Please Login!");
+        request.getRequestDispatcher("/").forward(request, response);
+        return;
+    }
+    LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String,Integer>) session.getAttribute("shopCart");
 %>
 
 <!DOCTYPE html>

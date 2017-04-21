@@ -27,7 +27,7 @@
       <br />
     <% } else if (error) {%>
       <div class="col-xs-1 col-centered" style="width:425px;text-align: center;">
-        <span class="error text-danger"><strong>Error:</strong> Invalid Email or Wrong Password</span>
+        <span class="error text-danger"><strong>Error:</strong> <%out.println(request.getAttribute("errInfo"));%></span>
       </div>
       <br />
     <% } %>

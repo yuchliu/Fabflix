@@ -1,5 +1,12 @@
 <%@ page import="java.util.*,service.*" pageEncoding="ISO-8859-1"%>
-
+<%
+	if (session.getAttribute("User")==null){
+		request.setAttribute("error", true);
+		request.setAttribute("errInfo","Please Login!");
+		request.getRequestDispatcher("/").forward(request, response);
+		return;
+	}
+%>
 <!DOCTYPE html>
 <html>
   <head>

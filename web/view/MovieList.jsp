@@ -1,5 +1,13 @@
 <%@ page import="java.util.*,domain.*,controller.*" pageEncoding="ISO-8859-1"%>
 <%
+
+	if (session.getAttribute("User")==null){
+		request.setAttribute("error", true);
+		request.setAttribute("errInfo","Please Login!");
+		request.getRequestDispatcher("/").forward(request, response);
+		return;
+	}
+
 	Clauss clauss = (Clauss)request.getAttribute("clauss");
 	int pageTotal = (int)request.getAttribute("pageTotal");
 	int pageNum = (int)request.getAttribute("pageNum");

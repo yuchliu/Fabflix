@@ -1,6 +1,12 @@
 <%@ page import="java.util.*,domain.Movie" pageEncoding="ISO-8859-1"%>
 <%
-Movie movie = (Movie)request.getAttribute("movie");
+    if (session.getAttribute("User")==null){
+        request.setAttribute("error", true);
+        request.setAttribute("errInfo","Please Login!");
+        request.getRequestDispatcher("/").forward(request, response);
+        return;
+    }
+    Movie movie = (Movie)request.getAttribute("movie");
 %>
 
 <!DOCTYPE html>
