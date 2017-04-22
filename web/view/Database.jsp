@@ -1,9 +1,8 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ResultSet resultSet = (ResultSet) request.getAttribute("resultSet");
-    ResultSetMetaData metaData = resultSet.getMetaData();
-    int numCol = metaData.getColumnCount();
+    ArrayList<String> columns = (ArrayList<String>)request.getAttribute("columns");
+    ArrayList<ArrayList<String>> rows = (ArrayList<ArrayList<String>>)request.getAttribute("rows");
 %>
 <html>
 <head>
@@ -16,20 +15,22 @@
         <table id="database-table" class="table table-striped table-bordered dt-responsive" style="display: none;">
             <thead>
                 <tr>
-                    <% for (int i = 1; i <= numCol; i++) { %>
-                        <th><% out.print(metaData.getColumnName(i)); %></th>
+                    <% for (String column: columns) { %>
+                        <th><%= column %></th>
                     <% } %>
                 </tr>
             </thead>
             <tbody>
-                <% while (resultSet.next()) { %>
+
+                <% for (ArrayList<String> row: rows) { %>
+
                     <tr>
-                        <% for (int i = 1; i <= numCol; i++) { %>
-                            <td><% out.print(resultSet.getString(i)); %></td>
+                        <% for (String cell: row) { %>
+                            <td><%= cell %></td>
                         <% } %>
                     </tr>
+
                 <% } %>
-            </tbody>
         </table>
     </div>
 
