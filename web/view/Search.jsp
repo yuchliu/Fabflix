@@ -1,6 +1,14 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html>
+<%
+	if (session.getAttribute("User")==null){
+		request.setAttribute("error", true);
+		request.setAttribute("errInfo","Please Login!");
+		request.getRequestDispatcher("/").forward(request, response);
+		return;
+	}
+%>
 <html>
   <head>
     <title>Search Movie</title>

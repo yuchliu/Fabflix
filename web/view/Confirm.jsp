@@ -1,6 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%
-String valid = request.getParameter("valid");
+    if (session.getAttribute("User")==null){
+        request.setAttribute("error", true);
+        request.setAttribute("errInfo","Please Login!");
+        request.getRequestDispatcher("/").forward(request, response);
+        return;
+    }
+    String valid = request.getParameter("valid");
 %>
 
 <!DOCTYPE html>

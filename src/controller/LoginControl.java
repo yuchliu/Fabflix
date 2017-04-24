@@ -19,9 +19,10 @@ public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("logout")!=null && "yes".equals(request.getParameter("logout")))
+		if (request.getParameter("logout")!=null && "true".equals(request.getParameter("logout")))
 		{
 			request.getSession().removeAttribute("User");
+			System.out.print("Enter Logout!!!!");
 			response.sendRedirect("/");
 		}
 		else {
@@ -48,6 +49,7 @@ public class LoginControl extends HttpServlet {
 				else
 				{
 					request.setAttribute("error", true);
+					request.setAttribute("errInfo","Invalid username or password!");
 					request.getRequestDispatcher("/").forward(request, response);
 				}
 			} catch (SQLException e) {

@@ -1,7 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +28,32 @@ public class DatabaseControl extends HttpServlet {
         String sql = "SELECT * FROM " + dbName + ";";
         ResultSet rs = DBManager.executeQuery(sql);
 
-        request.setAttribute("resultSet", rs);
-        request.getRequestDispatcher("/view/Database.jsp").forward(request, response);
+        try {
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int numCol = metaData.getColumnCount();
+            ArrayList<String> columns = new ArrayList<>();
+            for(int i = 1; i <= numCol; i++) {
+                columns.add(rs.getMetaData().getColumnName(i));
+            }
+            request.setAttribute("columns", columns);
+
+            ArrayList<ArrayList<String>> rows = new ArrayList<>();
+            while(rs.next()) {
+                ArrayList<String> r = new ArrayList<>();
+                for(int i = 1; i <= numCol; i++) {
+                    r.add(rs.getString(i));
+                }
+                rows.add(r);
+            }
+            request.setAttribute("rows", rows);
+
+            rs.close();
+            request.getRequestDispatcher("/view/Database.jsp").forward(request, response);
+
+        } catch (SQLException e) {
+            throw new ServletException(e.getMessage());
+        }
 
     }
 }

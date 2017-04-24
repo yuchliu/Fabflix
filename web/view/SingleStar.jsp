@@ -1,7 +1,13 @@
 <%@ page language="java" import="java.util.*,domain.*" pageEncoding="ISO-8859-1"%>
 <%
-Star star = (Star)request.getAttribute("star");
-LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
+	if (session.getAttribute("User")==null){
+		request.setAttribute("error", true);
+		request.setAttribute("errInfo","Please Login!");
+		request.getRequestDispatcher("/").forward(request, response);
+		return;
+	}
+	Star star = (Star)request.getAttribute("star");
+	LinkedList<Movie> result = (LinkedList<Movie>) request.getAttribute("result");
 %>
 
 <!DOCTYPE html>
