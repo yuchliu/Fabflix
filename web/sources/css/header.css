@@ -2,6 +2,10 @@
     display: block;
 }*/
 
+nav.navbar{
+    margin: 0 0 5px 0;
+}
+
 .dropdown-menu.columns-3 {
     min-width: 500px;
 }

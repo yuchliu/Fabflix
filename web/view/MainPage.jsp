@@ -22,32 +22,31 @@
 <head>
     <title>MainPage</title>
     <link rel="stylesheet" href="/sources/css/site.css" type="text/css">
-    <link rel="stylesheet" href="/sources/css/freelancer_mod.css" type="text/css">
+    <link rel="stylesheet" href="/sources/css/mainpage.css" type="text/css">
 </head>
 
-<header>
+
+<body>
+    <jsp:include page="/view/partial/Header.jsp" />
     <div class="container">
-        <jsp:include page="/view/partial/Header.jsp" />
-        <div class="flcontainer container" id="maincontent" tabindex="-1">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img class="img-responsive" src="img/profile.png" alt="">
-                    <div class="intro-text">
-                        <h1 class="name">Welcome <% if (TestAndSet(firstVisit) )
-                                                    { %>, new user
-                                                <% }else {%>back <%}%> !
-                        </h1>
-                        <hr class="star-light">
-                        <span class="skills"><%=email%></span>
+        <header>
+            <div class="container" id="banner" tabindex="-1">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <%--<img class="img-responsive" src="img/profile.png" alt="">--%>
+                        <div class="intro-text">
+                            <h1 class="name">Welcome <% if (TestAndSet(firstVisit) )
+                            { %>, new user
+                                <% }else {%>back <%}%> !
+                            </h1>
+                            <hr class="star-light">
+                            <span class="skills"><%=email%></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</header>
+        </header>
 
-<body>
-    <div class="container">
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-body">

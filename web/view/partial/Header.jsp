@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
-<link rel="stylesheet" href="/sources/css/site.css">
+<%--<link rel="stylesheet" href="/sources/css/site.css">--%>
 <link rel="stylesheet" href="/sources/css/header.css">
 
 <nav class="navbar navbar-default">
@@ -90,6 +90,5 @@
             <li style="margin-right: 15px;"><a href="/LoginControl?logout=true">Log Out</a></li>
         </ul>
     </div>
-
 </nav>
 
