@@ -34,9 +34,7 @@
                     <div class="col-lg-12">
                         <%--<img class="img-responsive" src="img/profile.png" alt="">--%>
                         <div class="intro-text">
-                            <h1 class="name">Welcome <% if (TestAndSet(firstVisit) )
-                            { %>, new user
-                                <% }else {%>back <%}%> !
+                            <h1 class="name">Welcome!
                             </h1>
                             <hr class="star-light">
                             <span class="skills"><%=email%></span>
@@ -52,11 +50,9 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation"><a href="/view/Search.jsp">Search Movie</a></li>
                         <li role="presentation"><a href="/view/Browse.jsp">Browse Movie</a></li>
-                        <li role="presentation"><a href="/WEB-INF/Test.html">Test</a></li>
                     </ul>
                 </div>
             </div>
-
         </div>
         <jsp:include page="/view/partial/Scripts.jsp" />
     </div>

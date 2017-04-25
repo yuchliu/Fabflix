@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
-<%--<link rel="stylesheet" href="/sources/css/site.css">--%>
+<link rel="stylesheet" href="/sources/css/site.css">
 <link rel="stylesheet" href="/sources/css/header.css">
 
 <nav class="navbar navbar-default">
@@ -33,40 +33,38 @@
                     LinkedList<String> genreSet = GenreService.getGenres();
                 %>
                 <ul class="dropdown-menu multi-column columns-3">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <% for (int i = 0; i < genreSet.size(); i+=3) {
-                                    String genre = genreSet.get(i);
-                                %>
-                                <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                                <%
-                                    }
-                                %>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <% for (int i = 1; i < genreSet.size(); i+=3) {
-                                    String genre = genreSet.get(i);
-                                %>
-                                <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                                <%
-                                    }
-                                %>
-                            </ul>
-                        </div>
-                        <div class="col-sm-4">
-                            <ul class="multi-column-dropdown">
-                                <% for (int i = 2; i < genreSet.size(); i+=3) {
-                                    String genre = genreSet.get(i);
-                                %>
-                                <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                                <%
-                                    }
-                                %>
-                            </ul>
-                        </div>
+                    <div class="col-sm-4">
+                        <ul class="multi-column-dropdown">
+                            <% for (int i = 0; i < genreSet.size(); i+=3) {
+                                String genre = genreSet.get(i);
+                            %>
+                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
+                            <%
+                                }
+                            %>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <ul class="multi-column-dropdown">
+                            <% for (int i = 1; i < genreSet.size(); i+=3) {
+                                String genre = genreSet.get(i);
+                            %>
+                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
+                            <%
+                                }
+                            %>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <ul class="multi-column-dropdown">
+                            <% for (int i = 2; i < genreSet.size(); i+=3) {
+                                String genre = genreSet.get(i);
+                            %>
+                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
+                            <%
+                                }
+                            %>
+                        </ul>
                     </div>
                 </ul>
             </li>
