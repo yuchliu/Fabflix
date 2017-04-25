@@ -23,13 +23,11 @@
             <tbody>
 
                 <% for (ArrayList<String> row: rows) { %>
-
                     <tr>
                         <% for (String cell: row) { %>
                             <td><%= cell %></td>
                         <% } %>
                     </tr>
-
                 <% } %>
         </table>
     </div>
