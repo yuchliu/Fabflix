@@ -11,26 +11,40 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Movie Information</title>
-  </head>
-  
-  <body>
-      <div class="container">
-        <jsp:include page="/view/partial/Header.jsp" />
-        <h1 align="center"><%=movie.getTitle()%></h1><br>
-        <table>
-        <tr><a href="/MovieControl?id=<%=movie.getId()%>"><%=movie.getTitle()%></a><%=" "+movie.getYear()%><br/>
-            Genres : <%for(String genre:movie.getGenre())out.println("<a href=\"/BrowseControl?genre="+genre+"\">"+genre+"\t</a>");%><br/>
-            Stars : <%for(String star:movie.getStars())out.println("<a href=\"/StarControl?star="+star+"\">"+star+"\t</a>");%><br/>
-            Director :<%=movie.getDirector()%><br/>
-            <img height=200 src=<%=movie.getBannerUrl()%> alt="Banner Url Expired!"><br/>
-            Movie ID :<%=movie.getId() %><br>
-            Trailer URL:<%=movie.getTrailerUrl()%><br>
-            <input type ="button" value="Add to Cart" onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'"/>
-            </tr><hr/><br/>
-        </table>
-        <jsp:include page="/view/partial/Scripts.jsp" />
-      </div>
-  </body>
+    <head>
+        <title>Movie Information</title>
+        <link rel="stylesheet" href="/sources/css/singlemovie.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <jsp:include page="/view/partial/Header.jsp" />
+            <div class="row">
+                <div class="row-items col-sm-6">
+                    <img id="mv-poster" alt="Banner Url Expired!" src="<%=movie.getBannerUrl()%>"/><br>
+                </div>
+
+                <div class="info-panel row-items col-sm-6">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><%=movie.getTitle()%></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-sm-12 col-xs-12" role="group" aria-label="...">
+                                <ul class="list-group col-lg-12 col-sm-12">
+                                    <li class="list-group-item">Genres : <%for(String genre:movie.getGenre())out.println("<a href=\"/BrowseControl?genre="+genre+"\"> "+genre+"\t</a>");%></li>
+                                    <li class="list-group-item">Stars : <%for(String star:movie.getStars())out.println("<a href=\"/StarControl?star="+star+"\">"+star+"\t</a>");%></li>
+                                    <li class="list-group-item">Director : <%=movie.getDirector()%></li>
+                                    <li class="list-group-item">Movie ID : <%=movie.getId() %></li>
+                                    <li class="list-group-item"><Trailer URL : <%out.println("<a href=\""+ movie.getTrailerUrl() +"\">Trailer URL:"+ movie.getTrailerUrl() +"\t</a>");%></li>
+                                    <button id = "add-cart" type="button" class="btn btn-default" onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'">Add to Cart</button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <jsp:include page="/view/partial/Scripts.jsp" />
+        </div>
+    </body>
 </html>

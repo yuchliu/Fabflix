@@ -25,7 +25,7 @@
 }
 
 .info-panel .panel-body {
-    font-size: 120%;
+    font-size: 130%;
 }
 
 div .row-items {
@@ -34,7 +34,6 @@ div .row-items {
 
 .prod-panel {
     margin: 0.5%;
-    background-image: url(/img/pink_dust.png);
 }
 
 .prod-panel .row {

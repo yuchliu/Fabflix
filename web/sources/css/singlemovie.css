@@ -1,0 +1,38 @@
+#mv-poster {
+    min-width:90%;
+    min-height:90%;
+    max-width:90%;
+    max-height:90%;
+    float: left;
+    margin: 50px 0 50px 5%;
+    border: 5px solid lightyellow;
+    color: white;
+    font-size: 200%;
+}
+
+.info-panel .panel-title {
+    font-size: 300%;
+}
+
+.info-panel .panel {
+    clear: both;
+    margin: 60px 1% 0 1%;
+    border: 1px solid grey;
+    border-radius: 5px 5px 0 0;
+    /*x offset, y offset, blur, color*/
+    box-shadow: 0 0 10px white;
+    /*font-size: 200%;*/
+}
+
+.info-panel .panel-body {
+    font-size: 130%;
+}
+
+div .row-items {
+    padding: 0 10px 0 0;
+}
+
+#add-cart {
+    margin: 20px 0 0 0;
+    font-size: 110%;
+}
