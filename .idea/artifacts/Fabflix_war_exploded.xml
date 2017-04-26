@@ -8,7 +8,6 @@
           <element id="module-output" name="Fabflix" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
           <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-connector-java-5.1.40-bin.jar" />
         </element>
       </element>

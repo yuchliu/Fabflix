@@ -35,11 +35,11 @@ public class SearchControl extends HttpServlet {
 		clauss = new Clauss();
 		if(order != null) clauss.setOrder(order);
 		if(order != null && orderType != null) clauss.setOrder(order + " " + orderType);
-		if(title != null) clauss.setTitle(title);
-		if(year != null) clauss.setYear(year);
-		if(director != null) clauss.setDirector(director);
-		if(firstName != null) clauss.setFirstName(firstName);
-		if(lastName != null) clauss.setLastName(lastName);
+		if(title != null) clauss.setTitle(title.trim());
+		if(year != null) clauss.setYear(year.trim());
+		if(director != null) clauss.setDirector(director.trim());
+		if(firstName != null) clauss.setFirstName(firstName.trim());
+		if(lastName != null) clauss.setLastName(lastName.trim());
 		if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
 
 		// Pagination parameters
