@@ -30,7 +30,8 @@
                     <input class="btn btn-default"
                            type="button"
                            value="Add to Cart"
-                           onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'"/>
+                           method="post"
+                           onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>'"/>
                 </div>
             </div>
         </div>

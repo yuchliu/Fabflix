@@ -1,7 +1,8 @@
-<%@ page import="java.util.*,service.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,service.*, domain.User" pageEncoding="ISO-8859-1"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    User user = (User) request.getSession().getAttribute("User");
 %>
 
 <base href="<%=basePath%>">
@@ -36,9 +37,9 @@
                 <ul id="browse-dropdown" class="dropdown-menu multi-column columns-3">
                     <%  for (int i = 0; i < genreSet.size(); i+=3) { %>
 
-                            <%  String[] chunk = new String[3];
+                            <%  ArrayList<String> chunk = new ArrayList<>();
                                 for (int j = 0; j < 3 && i + j < genreSet.size(); j++) {
-                                    chunk[j] = genreSet.get(i + j);
+                                    chunk.add(genreSet.get(i + j));
                                 }
                             %>
 
@@ -70,6 +71,8 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="/view/shopCart.jsp"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:18px;padding-top:2px;"></i></a></li>
+            <li><a><%=user.getFirstName()%></a></li>
             <li style="margin-right: 15px;"><a href="/LoginControl?logout=true">Log Out</a></li>
         </ul>
     </div>

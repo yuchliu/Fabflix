@@ -1,6 +1,10 @@
 package controller;
 
+import doa.DBManager;
+import domain.User;
+
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.LinkedHashMap;
 
 import javax.servlet.ServletException;
@@ -15,17 +19,24 @@ public class ShopControl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		@SuppressWarnings("unchecked")
-		LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String, Integer>) request.getSession().getAttribute("shopCart");
-		String movie = request.getParameter("movie");
-		if (shopCart == null) {shopCart = new LinkedHashMap<String, Integer>(); shopCart.put(movie, 1);}
-		else{
-			int count = shopCart.containsKey(movie) ? shopCart.get(movie) : 0;
-			shopCart.put(movie, count+1);
+
+		User user = (User) request.getSession().getAttribute("User");
+		Object clear = request.getParameter("clear");
+		if(clear != null && "true".equalsIgnoreCase((String) clear)) {
+			String[] params = {user.getId()};
+			String sql = "DELETE FROM carts WHERE customer_id = ?;";
+			DBManager.executeUpdate(sql, params);
+			DBManager.close();
 		}
-		if (request.getParameter("clear")!=null && "true".equals(request.getParameter("clear")))
-			shopCart = null;
-		request.getSession().setAttribute("shopCart", shopCart);
-		request.getRequestDispatcher("/view/shopCart.jsp").forward(request, response);
+		else
+		{
+			String[] params = {user.getId(), request.getParameter("movie")};
+			String sql = "INSERT INTO carts (customer_id, movie_id) VALUE(?, ?) ON DUPLICATE KEY UPDATE amount = amount + 1;";
+			DBManager.executeUpdate(sql, params);
+			DBManager.close();
+		}
+
+		request.getRequestDispatcher("/view/shopCart.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
