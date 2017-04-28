@@ -22,12 +22,12 @@ public class StarControl extends HttpServlet {
 		Clauss clauss = new Clauss();
 		String []starName = starname.split(" ");
 		clauss.setFirstName(starName[0]);
-		clauss.setLastName(starName[1]);
+		clauss.setLastName(starName[starName.length-1]);
 		request.getSession().setAttribute("clauss", clauss);
 		
 		String sql = "SELECT id, dob, photo_url FROM stars "
-					+"WHERE first_name = \""+starName[0]+"\" AND "
-					+"last_name = \""+starName[1]+"\";";
+					+"WHERE first_name like \""+starName[0]+"%\" AND "
+					+"last_name like \"%"+starName[starName.length-1]+"\";";
 		
 		System.out.println(sql);
 		ResultSet rs = DBManager.executeQuery(sql);

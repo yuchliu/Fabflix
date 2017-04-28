@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import doa.DBManager;
+import domain.User;
 
 @WebServlet("/CheckoutControl")
 public class CheckoutControl extends HttpServlet {
@@ -39,6 +41,18 @@ public class CheckoutControl extends HttpServlet {
 			DBManager.close();
 			response.sendRedirect("/view/Confirm.jsp?valid="+valid);
 		}
+/*
+		if (valid){
+			User user = (User) request.getSession().getAttribute("User");
+			LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String, Integer>) request.getSession().getAttribute("shopCart");
+			String sqlUpdate = "INSERT INTO sales VALUES(6211, 140127, 140003, '2004/04/01');";
+
+
+
+			String params[] = new String[]{
+					request.getSession().getAttribute("User"),
+			};
+		}*/
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
