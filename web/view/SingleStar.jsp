@@ -34,8 +34,8 @@
                         <div class="panel-body">
                             <div class="col-sm-12 col-xs-12" role="group" aria-label="...">
                                 <ul class="list-group col-lg-6 col-sm-12">
-                                    <li class="list-group-item">Birthday:<%=star.getDob()%></li>
-                                    <li class="list-group-item">Star ID :<%=star.getId()%></li>
+                                    <li class="list-group-item">Birthday: <%=star.getDob()%></li>
+                                    <li class="list-group-item">Star ID : <%=star.getId()%></li>
                                 </ul>
                             </div>
                         </div>

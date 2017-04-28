@@ -34,12 +34,16 @@
                                     <li class="list-group-item">Genres : <%for(String genre:movie.getGenre())out.println("<a href=\"/BrowseControl?genre="+genre+"\"> "+genre+"\t</a>");%></li>
                                     <li class="list-group-item">Stars : <%for(String star:movie.getStars())out.println("<a href=\"/StarControl?star="+star+"\">"+star+"\t</a>");%></li>
                                     <li class="list-group-item">Director : <%=movie.getDirector()%></li>
+                                    <li class="list-group-item">Year : <%=movie.getYear()%></li>
                                     <li class="list-group-item">Movie ID : <%=movie.getId() %></li>
                                     <li class="list-group-item">
                                         <p>Trailer</p>
                                         <div class="embed-responsive embed-responsive-16by9">
                                             <iframe class="embed-responsive-item" src="<%= movie.getTrailerUrl().replace("watch?v=", "embed/") %>"></iframe>
                                         </div>
+                                        <p>
+                                            URL: <a href = "<%=movie.getTrailerUrl()%>"><%=movie.getTrailerUrl()%></a>
+                                        </p>
                                     </li>
                                     <button id = "add-cart" type="button" class="btn btn-default" onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'">Add to Cart</button>
                                 </ul>

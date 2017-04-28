@@ -1,0 +1,15 @@
+.panel {
+    margin: 60px 1% 0 1%;
+    border: 1px solid grey;
+    border-radius: 5px 5px 0 0;
+    /*x offset, y offset, blur, color*/
+    box-shadow: 0 0 10px white;
+}
+
+h3.panel-title {
+    font-size: 150%;
+}
+
+.panel .row {
+    padding-left: 20px;
+}

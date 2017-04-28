@@ -37,9 +37,9 @@
                 <ul id="browse-dropdown" class="dropdown-menu multi-column columns-3">
                     <%  for (int i = 0; i < genreSet.size(); i+=3) { %>
 
-                            <%  String[] chunk = new String[3];
-                                for (int j = 0; j < 3 && i + j < genreSet.size(); j++) {
-                                    chunk[j] = genreSet.get(i + j);
+                            <%  ArrayList<String> chunk = new ArrayList<>();
+                                for (int j = 0; j < 4 && i + j < genreSet.size(); j++) {
+                                    chunk.add(genreSet.get(i + j));
                                 }
                             %>
 
