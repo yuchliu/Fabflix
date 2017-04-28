@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,18 +43,29 @@ public class CheckoutControl extends HttpServlet {
 			DBManager.close();
 			response.sendRedirect("/view/Confirm.jsp?valid="+valid);
 		}
-/*
+
 		if (valid){
 			User user = (User) request.getSession().getAttribute("User");
 			LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String, Integer>) request.getSession().getAttribute("shopCart");
-			String sqlUpdate = "INSERT INTO sales VALUES(6211, 140127, 140003, '2004/04/01');";
+			String sqlUpdate = "INSERT INTO sales (customer_id, movie_id, sale_date) VALUES(?,?,?)";
+
+			//get UTC time
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+			LocalDate localDate = LocalDate.now();
+			String sale_date = dtf.format(localDate);
+
+			for (String movie : shopCart.keySet()) {
+                String[] params = new String[]{
+                		user.getId(),
+						movie.split("SPLITER")[0],
+						sale_date
+				};
+                DBManager.executeUpdate(sqlUpdate,params);
+            }
 
 
-
-			String params[] = new String[]{
-					request.getSession().getAttribute("User"),
-			};
-		}*/
+			DBManager.close();
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
