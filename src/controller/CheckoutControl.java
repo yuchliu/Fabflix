@@ -64,7 +64,10 @@ public class CheckoutControl extends HttpServlet {
 						movie.split("SPLITER")[0],
 						sale_date
 				};
-                trans += DBManager.executeUpdate(sqlUpdate,params);
+
+                int quantity = shopCart.get(movie);
+                for (int i = 0; i!=quantity; ++i)
+                	trans += DBManager.executeUpdate(sqlUpdate,params);
             }
 
             request.getSession().removeAttribute("shopCart");
