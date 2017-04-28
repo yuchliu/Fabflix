@@ -41,6 +41,7 @@ public class LoginControl extends HttpServlet {
 					User user = new User();
 					user.setFirstName(rs.getString(1));
 					user.setLastName(rs.getString(2));
+					user.setEmail(email);
 					user.setCc_id(rs.getString(3));
 					request.getSession().setAttribute("User", user);
 					request.getSession().setAttribute("shopCart", new LinkedHashMap<String,Integer>());

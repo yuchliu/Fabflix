@@ -1,7 +1,8 @@
-<%@ page import="java.util.*,service.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*,service.*, domain.User" pageEncoding="ISO-8859-1"%>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+    User user = (User) request.getSession().getAttribute("User");
 %>
 
 <base href="<%=basePath%>">
@@ -70,6 +71,7 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a><%=user.getFirstName()%></a></li>
             <li style="margin-right: 15px;"><a href="/LoginControl?logout=true">Log Out</a></li>
         </ul>
     </div>
