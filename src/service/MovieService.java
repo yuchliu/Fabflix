@@ -71,7 +71,7 @@ public class MovieService {
 				String genreSelect = "SELECT distinct genres.name "+
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
-	
+
 				rs = DBManager.executeQuery(genreSelect);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));

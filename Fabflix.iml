@@ -29,7 +29,7 @@
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.11" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-java-5.1.40-bin" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.13" level="application_server_libraries" />
   </component>
 </module>
