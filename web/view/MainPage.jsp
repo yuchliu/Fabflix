@@ -26,8 +26,8 @@
 
 
 <body>
-    <jsp:include page="/view/partial/Header.jsp" />
     <div class="container">
+        <jsp:include page="/view/partial/Header.jsp" />
         <header>
             <div class="container" id="banner" tabindex="-1">
                 <div class="row">

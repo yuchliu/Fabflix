@@ -1,14 +1,13 @@
 body {
-    background-image: url(/img/pink_dust.png);
+    background-color: #e2e2e2;
     padding-bottom: 10px;
 }
 
 .movie-list-item .movie-list-item-wrapper {
-    background-color: #f7f8f9;
     margin: 10px;
     padding: 15px;
     border-radius: 10px;
-    border: 1px solid #eaedef;
+    border: 1px solid rgb(180, 180, 180);
 }
 
 ul.page-selector {

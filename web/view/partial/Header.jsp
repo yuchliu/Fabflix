@@ -27,45 +27,30 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a href="/view/Browse.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Browse <span class="caret"></span></a>
+                <a href="/view/Browse.jsp">
+                    Browse <span class="caret"></span>
+                </a>
                 <%
                     LinkedList<String> genreSet = GenreService.getGenres();
                 %>
-                <ul class="dropdown-menu multi-column columns-3">
-                    <div class="col-sm-4">
-                        <ul class="multi-column-dropdown">
-                            <% for (int i = 0; i < genreSet.size(); i+=3) {
-                                String genre = genreSet.get(i);
-                            %>
-                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                            <%
+                <ul id="browse-dropdown" class="dropdown-menu multi-column columns-3">
+                    <%  for (int i = 0; i < genreSet.size(); i+=3) { %>
+
+                            <%  String[] chunk = new String[3];
+                                for (int j = 0; j < 3 && i + j < genreSet.size(); j++) {
+                                    chunk[j] = genreSet.get(i + j);
                                 }
                             %>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4">
-                        <ul class="multi-column-dropdown">
-                            <% for (int i = 1; i < genreSet.size(); i+=3) {
-                                String genre = genreSet.get(i);
-                            %>
-                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                            <%
-                                }
-                            %>
-                        </ul>
-                    </div>
-                    <div class="col-sm-4">
-                        <ul class="multi-column-dropdown">
-                            <% for (int i = 2; i < genreSet.size(); i+=3) {
-                                String genre = genreSet.get(i);
-                            %>
-                            <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
-                            <%
-                                }
-                            %>
-                        </ul>
-                    </div>
+
+                            <div class="row">
+                                <% for (String genre: chunk) { %>
+                                    <div class="col-sm-4">
+                                        <li><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></li>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                    <% } %>
                 </ul>
             </li>
             <li><a href="/view/Search.jsp">Search</a>

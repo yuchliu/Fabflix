@@ -23,7 +23,6 @@
                 <div class="row-items col-sm-6">
                     <img id="mv-poster" alt="Banner Url Expired!" src="<%=movie.getBannerUrl()%>"/><br>
                 </div>
-
                 <div class="info-panel row-items col-sm-6">
                     <div class="panel panel-success">
                         <div class="panel-heading">
@@ -36,7 +35,12 @@
                                     <li class="list-group-item">Stars : <%for(String star:movie.getStars())out.println("<a href=\"/StarControl?star="+star+"\">"+star+"\t</a>");%></li>
                                     <li class="list-group-item">Director : <%=movie.getDirector()%></li>
                                     <li class="list-group-item">Movie ID : <%=movie.getId() %></li>
-                                    <li class="list-group-item"><Trailer URL : <%out.println("<a href=\""+ movie.getTrailerUrl() +"\">Trailer URL:"+ movie.getTrailerUrl() +"\t</a>");%></li>
+                                    <li class="list-group-item">
+                                        <p>Trailer</p>
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item" src="<%= movie.getTrailerUrl().replace("watch?v=", "embed/") %>"></iframe>
+                                        </div>
+                                    </li>
                                     <button id = "add-cart" type="button" class="btn btn-default" onclick="window.location.href='/ShopControl?movie=<%=movie.getId()%>SPLITER<%=movie.getTitle()%>'">Add to Cart</button>
                                 </ul>
                             </div>
