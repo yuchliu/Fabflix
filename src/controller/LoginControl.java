@@ -29,7 +29,7 @@ public class LoginControl extends HttpServlet {
 			String email = request.getParameter("email");
 			String pwd = request.getParameter("password");
 
-			String sql = "SELECT first_name, last_name, cc_id, password "+
+			String sql = "SELECT first_name, last_name, id, password "+
 						 "FROM customers WHERE email = \""+email+"\"";
 
 			ResultSet rs = DBManager.executeQuery(sql);
@@ -41,7 +41,7 @@ public class LoginControl extends HttpServlet {
 					User user = new User();
 					user.setFirstName(rs.getString(1));
 					user.setLastName(rs.getString(2));
-					user.setCc_id(rs.getString(3));
+					user.setId(rs.getString(3));
 					request.getSession().setAttribute("User", user);
 					request.getSession().setAttribute("shopCart", new LinkedHashMap<String,Integer>());
 					request.getRequestDispatcher("/view/MainPage.jsp").forward(request, response);

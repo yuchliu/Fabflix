@@ -14,9 +14,12 @@
         request.getRequestDispatcher("/").forward(request, response);
         return;
     }
-    else System.out.println("User: "+session.getAttribute("User"));
+    else
+        System.out.println("User: "+session.getAttribute("User"));
     User user = (User) request.getSession().getAttribute("User");
-    String email = user.getEmail();%>
+    String email = user.getEmail();
+%>
+
 <html>
 <head>
     <title>MainPage</title>

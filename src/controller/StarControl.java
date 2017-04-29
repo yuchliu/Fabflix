@@ -21,13 +21,21 @@ public class StarControl extends HttpServlet {
 		String starname = request.getParameter("star");
 		Clauss clauss = new Clauss();
 		String []starName = starname.split(" ");
-		clauss.setFirstName(starName[0]);
-		clauss.setLastName(starName[1]);
+		StringBuffer bFirstName = new StringBuffer();
+		for (int i = 0; i < starName.length - 1; ++i) {
+			if (i != starName.length - 2)
+				bFirstName.append(starName[i] + " ");
+			else
+				bFirstName.append(starName[i]);
+		}
+		String concatFirstName = bFirstName.toString();
+		clauss.setFirstName(concatFirstName);
+		clauss.setLastName(starName[starName.length-1]);
 		request.getSession().setAttribute("clauss", clauss);
 		
 		String sql = "SELECT id, dob, photo_url FROM stars "
-					+"WHERE first_name = \""+starName[0]+"\" AND "
-					+"last_name = \""+starName[1]+"\";";
+					+"WHERE first_name like \""+ concatFirstName +"%\" AND "
+					+"last_name like \"%"+starName[starName.length-1]+"\";";
 		
 		System.out.println(sql);
 		ResultSet rs = DBManager.executeQuery(sql);
@@ -37,8 +45,8 @@ public class StarControl extends HttpServlet {
 				star.setId(rs.getInt(1));
 				star.setDob(rs.getString(2));
 				star.setPhotoUrl(rs.getString(3));
-				star.setFistName(starName[0]);
-				star.setLastName(starName[1]);
+				star.setFistName(concatFirstName);
+				star.setLastName(starName[starName.length-1]);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

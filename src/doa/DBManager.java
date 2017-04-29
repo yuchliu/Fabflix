@@ -21,6 +21,23 @@ public class DBManager {
 		}
 		return rs;
 	}
+
+	public static int executeUpdate(String sql, String params[])
+	{
+		//sql format: select * from
+		conn = getConnection();
+		try {
+			System.out.println("UpdateSql = "+sql);
+			pst = conn.prepareStatement(sql);
+			for (int i=0; i!=params.length; ++i){
+				pst.setString(i+1,params[i]);
+			}
+			return pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 	
 	private static boolean openConnection()
 	{
