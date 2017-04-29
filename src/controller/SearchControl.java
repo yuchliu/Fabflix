@@ -31,6 +31,8 @@ public class SearchControl extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String genre = request.getParameter("genre");
 		String source = request.getParameter("source");
+		if (source==null)
+			source = "search";
 
 		// Set parameters
 		clauss = new Clauss();
@@ -42,7 +44,7 @@ public class SearchControl extends HttpServlet {
 		if(firstName != null) clauss.setFirstName(firstName.trim());
 		if(lastName != null) clauss.setLastName(lastName.trim());
 		if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
-		if (source != null && "browse".equals(source)) clauss.setSource(source);
+		if (source != null) clauss.setSource(source);
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));

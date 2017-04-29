@@ -12,15 +12,15 @@ public class Clauss {
 	//genre attribute
 	private String genre="";
 	private String source="search";
+
+
 	public String getSource() {
 		return source;
 	}
 	public void setSource(String source) {
 		this.source = source;
+		System.out.println("now source = "+source);
 	}
-
-
-
 	public String getTitle() {
 		return title;
 	}
@@ -61,9 +61,6 @@ public class Clauss {
 		return order;
 	}
 	public void setOrder(String order) {
-		System.out.println("order="+order);
-		System.out.println("before this.ordrer="+this.order);
 		this.order = order;
-		System.out.println("after this.ordrer="+this.order);
 	}	
 }
