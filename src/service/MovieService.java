@@ -159,7 +159,10 @@ public class MovieService {
 			
 			if(title!=null && !"".equals(title)) {
 				condition += isFirstCondition ? "" : "AND ";
-				condition += "movies.title LIKE \""+"%"+title+"%\" ";
+				if ("browse".equals(clauss.getSource()))
+					condition += "movies.title LIKE \""+title+"%\" ";
+				else
+					condition += "movies.title LIKE \""+"%"+title+"%\" ";
 				isFirstCondition = false;
 			}
 			
