@@ -71,6 +71,7 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="/view/shopCart.jsp"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:18px;padding-top:2px;"></i></a></li>
             <li><a><%=user.getFirstName()%></a></li>
             <li style="margin-right: 15px;"><a href="/LoginControl?logout=true">Log Out</a></li>
         </ul>

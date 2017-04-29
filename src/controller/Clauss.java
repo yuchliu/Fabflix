@@ -12,6 +12,16 @@ public class Clauss {
 	private String lastName="";
 	//genre attribute
 	private String genre="";
+	private String source="search";
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+
+
 	public String getTitle() {
 		return title;
 	}
