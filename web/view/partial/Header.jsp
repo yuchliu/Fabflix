@@ -38,7 +38,7 @@
                     <%  for (int i = 0; i < genreSet.size(); i+=3) { %>
 
                             <%  ArrayList<String> chunk = new ArrayList<>();
-                                for (int j = 0; j < 4 && i + j < genreSet.size(); j++) {
+                                for (int j = 0; j < 3 && i + j < genreSet.size(); j++) {
                                     chunk.add(genreSet.get(i + j));
                                 }
                             %>

@@ -6,10 +6,27 @@
     box-shadow: 0 0 10px white;
 }
 
+h2 {
+    font-size: 120%;
+}
+
 h3.panel-title {
     font-size: 150%;
 }
 
 .panel .row {
     padding-left: 20px;
+}
+
+#browse-title {
+    margin: 0 5%;
+    padding: 0;
+}
+
+div .browse-label {
+    margin: 5px 0;
+    border: 1px solid black;
+    border-radius: 3px 3px 0 0;
+    /*x offset, y offset, blur, color*/
+    box-shadow: 0 0 5px white;
 }

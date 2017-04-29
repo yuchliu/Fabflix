@@ -6,6 +6,7 @@ public class Clauss {
 	private String title = "";
 	private String year = "";
 	private String director = "";
+	private String startBy = "";
 	//star attribute
 	private String firstName="";
 	private String lastName="";
@@ -55,5 +56,7 @@ public class Clauss {
 		System.out.println("before this.ordrer="+this.order);
 		this.order = order;
 		System.out.println("after this.ordrer="+this.order);
-	}	
+	}
+	public String getStartBy() { return startBy; }
+	public void setStartBy(String startBy) { this.startBy = startBy; }
 }
