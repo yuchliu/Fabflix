@@ -36,7 +36,7 @@ public class ShopControl extends HttpServlet {
 			DBManager.close();
 		}
 
-		request.getRequestDispatcher("/view/shopCart.jsp");
+		request.getRequestDispatcher("/view/shopCart.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
