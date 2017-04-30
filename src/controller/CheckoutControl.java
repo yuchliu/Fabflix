@@ -51,11 +51,12 @@ public class CheckoutControl extends HttpServlet {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate localDate = LocalDate.now();
 			String sale_date = dtf.format(localDate);
+			ArrayList<String[]> sales = new ArrayList<>();
 
 			try {
 
 				User user = (User) request.getSession().getAttribute("User");
-				String sqlGetItems = "SELECT * FROM carts WHERE customer_id = " + user.getId() + ";";
+				String sqlGetItems = "SELECT * FROM carts INNER JOIN movies ON movie_id = movies.id WHERE customer_id = " + user.getId() + ";";
 				String sqlClearItems = "DELETE FROM carts WHERE customer_id = " + user.getId() + ";";
 				ResultSet cartItems = DBManager.executeQuery(sqlGetItems);
 
@@ -64,15 +65,20 @@ public class CheckoutControl extends HttpServlet {
 
 				while(cartItems.next()) {
 
-					for(int i = 0; i < cartItems.getInt("amount"); i++) {
+					String movie_title = cartItems.getString("title");
+					String movie_id = cartItems.getString("movie_id");
+					int amount = cartItems.getInt("amount");
+					sales.add(new String[]{ movie_title, movie_id, Integer.toString(amount)});
+
+					for(int i = 0; i < amount; i++) {
 
 						sqlUpdate += "(?, ?, ?)";
-						if(i != cartItems.getInt("amount") - 1) {
+						if(i != amount - 1) {
 							sqlUpdate += ", ";
 						}
 
 						params.add(user.getId());
-						params.add(cartItems.getString("movie_id"));
+						params.add(movie_id);
 						params.add(sale_date);
 
 					}
@@ -97,6 +103,7 @@ public class CheckoutControl extends HttpServlet {
 				request.getRequestDispatcher("/view/CheckOut.jsp").forward(request,response);
 			}
 
+			request.setAttribute("sales", sales);
 			request.getRequestDispatcher("/view/Confirm.jsp").forward(request,response);
 
 		}

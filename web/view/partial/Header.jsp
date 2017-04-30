@@ -67,6 +67,7 @@
                     <li><a href="DatabaseControl?dbName=sales">sales</a></li>
                     <li><a href="/DatabaseControl?dbName=stars">stars</a></li>
                     <li><a href="/DatabaseControl?dbName=stars_in_movies">stars_in_movies</a></li>
+                    <li><a href="/DatabaseControl?dbName=carts">carts</a></li>
                 </ul>
             </li>
         </ul>
