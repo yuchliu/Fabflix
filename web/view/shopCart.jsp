@@ -52,7 +52,7 @@
                 <th>Title</th>
                 <th>ID</th>
                 <th>Quantity</th>
-                <th></th>
+                <th style="width:50px;"></th>
             </tr>
         </thead>
         <tbody>
@@ -63,8 +63,8 @@
                 <td class="quantity-field" data-id="<%= movie.get(3) %>" tabindex="1" contenteditable="true">
                     <%= movie.get(2) %>
                 </td>
-                <td>
-                    <button class="delete-button btn btn-default" data-id="<%= movie.get(3) %>" style="margin: auto;">
+                <td class="text-center">
+                    <button class="delete-button btn btn-default" data-id="<%= movie.get(3) %>">
                         <i class="fa fa-trash-o" aria-hidden="true" style="font-size:18px;"></i>
                     </button>
                 </td>
@@ -85,18 +85,32 @@
             pageLength: "500"
         });
 
-        $(".quantity-field").on('blur', function(ev) {
+        $(".quantity-field").on('blur', function() {
+
             var $el = $(this);
-            UpdateCart($el.data("id"), $el.text())
+
+            if(isNaN($el.text())) {
+                alert("Please enter a number. Quantity was not updated.");
+            } else {
+                UpdateCart($el.data("id"), $el.text());
+            }
+
         });
 
-        $(".delete-button").on("click", function(ev) {
+        $("tr").on("click", ".delete-button", function() {
+
             var $el = $(this);
-            UpdateCart($el.data("id"), 0);
+            var $row = $($el.parent().parent());
+
+            UpdateCart($el.data("id"), "0");
+
+            $row.addClass("delete-target");
+            $("#sales-table").DataTable().row(".delete-target").remove().draw();
+
         });
 
         function UpdateCart(id, amount) {
-            console.log("Temp", id, amount);
+            $.post("/ShopControl", {update: "true", cart_id: id, amount: amount.trim()});
         }
 
     });
