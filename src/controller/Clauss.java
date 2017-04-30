@@ -62,10 +62,7 @@ public class Clauss {
 		return order;
 	}
 	public void setOrder(String order) {
-		System.out.println("order="+order);
-		System.out.println("before this.ordrer="+this.order);
 		this.order = order;
-		System.out.println("after this.ordrer="+this.order);
 	}
 	public String getStartBy() { return startBy; }
 	public void setStartBy(String startBy) { this.startBy = startBy; }

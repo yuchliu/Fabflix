@@ -33,7 +33,6 @@ public class SearchControl extends HttpServlet {
 		String startBy = request.getParameter("startby");
 
 		// Set parameters
-		System.out.println("Set Clauses");
 		clauss = new Clauss();
 		if(order != null) clauss.setOrder(order);
 		if(order != null && orderType != null) clauss.setOrder(order + " " + orderType);

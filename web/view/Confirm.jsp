@@ -6,7 +6,9 @@
         request.getRequestDispatcher("/").forward(request, response);
         return;
     }
+
     String trans = request.getParameter("trans");
+
 %>
 
 <!DOCTYPE html>

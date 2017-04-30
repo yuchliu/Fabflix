@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,11 +28,9 @@ public class CheckoutControl extends HttpServlet {
 		String expiration = request.getParameter("expiration");
 		
 		boolean valid = false;
-		int trans = 0;
-		
+
 		String sql = "SELECT first_name, last_name, expiration "
 				   + "FROM creditcards WHERE id = \""+cc_id+"\"";
-		
 		ResultSet rs = DBManager.executeQuery(sql);
 		try {
 			if (rs.next()){
@@ -46,35 +45,62 @@ public class CheckoutControl extends HttpServlet {
 			request.getRequestDispatcher("/view/CheckOut.jsp").forward(request,response);
 		}
 
-
-
 		else {
-			User user = (User) request.getSession().getAttribute("User");
-			LinkedHashMap<String,Integer> shopCart = (LinkedHashMap<String, Integer>) request.getSession().getAttribute("shopCart");
-			String sqlUpdate = "INSERT INTO sales (customer_id, movie_id, sale_date) VALUES(?,?,?)";
 
 			//get UTC time
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 			LocalDate localDate = LocalDate.now();
 			String sale_date = dtf.format(localDate);
 
-			for (String movie : shopCart.keySet()) {
-                String[] params = new String[]{
-                		user.getId(),
-						movie.split("SPLITER")[0],
-						sale_date
-				};
+			try {
 
-                int quantity = shopCart.get(movie);
-                for (int i = 0; i!=quantity; ++i)
-                	trans += DBManager.executeUpdate(sqlUpdate,params);
-            }
+				User user = (User) request.getSession().getAttribute("User");
+				String sqlGetItems = "SELECT * FROM carts WHERE customer_id = " + user.getId() + ";";
+				String sqlClearItems = "DELETE FROM carts WHERE customer_id = " + user.getId() + ";";
+				ResultSet cartItems = DBManager.executeQuery(sqlGetItems);
 
-            request.getSession().removeAttribute("shopCart");
+				String sqlUpdate = "INSERT INTO sales (customer_id, movie_id, sale_date) VALUES ";
+				ArrayList<String> params = new ArrayList<>();
+
+				while(cartItems.next()) {
+
+					for(int i = 0; i < cartItems.getInt("amount"); i++) {
+
+						sqlUpdate += "(?, ?, ?)";
+						if(i != cartItems.getInt("amount") - 1) {
+							sqlUpdate += ", ";
+						}
+
+						params.add(user.getId());
+						params.add(cartItems.getString("movie_id"));
+						params.add(sale_date);
+
+					}
+
+					if(cartItems.isLast()) {
+						sqlUpdate += ";";
+					} else {
+						sqlUpdate += ", ";
+					}
+
+				}
+
+				DBManager.close();
+				DBManager.executeUpdate(sqlUpdate, params.toArray(new String[params.size()]));
+				DBManager.close();
+				DBManager.executeUpdate(sqlClearItems, new String[]{});
+				DBManager.close();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.setAttribute("error",valid);
+				request.getRequestDispatcher("/view/CheckOut.jsp").forward(request,response);
+			}
+
+			request.getRequestDispatcher("/view/Confirm.jsp").forward(request,response);
+
 		}
 
-		DBManager.close();
-		response.sendRedirect("/view/Confirm.jsp?trans="+trans);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

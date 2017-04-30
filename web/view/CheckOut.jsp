@@ -39,7 +39,7 @@
                 <label>Credit Card:</label>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-                    <input type="text" name="cc_d" class="form-control" placeholder="...credit card">
+                    <input type="text" name="cc_id" class="form-control" placeholder="...credit card">
                 </div>
             </div>
 
