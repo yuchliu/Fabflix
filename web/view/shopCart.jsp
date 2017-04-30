@@ -1,11 +1,11 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1" %>
 <%@ page import="domain.User" %>
 <%@ page import="doa.DBManager" %>
 <%@ page import="java.sql.ResultSet" %>
 <%
-    if (session.getAttribute("User")==null){
+    if (session.getAttribute("User") == null) {
         request.setAttribute("error", true);
-        request.setAttribute("errInfo","Please Login!");
+        request.setAttribute("errInfo", "Please Login!");
         request.getRequestDispatcher("/").forward(request, response);
         return;
     }
@@ -15,11 +15,12 @@
     ResultSet rs = DBManager.executeQuery(sql);
 
     ArrayList<ArrayList<String>> movies = new ArrayList<>();
-    while(rs.next()) {
+    while (rs.next()) {
         ArrayList<String> movie = new ArrayList<String>();
         movie.add(rs.getString("title"));
         movie.add(rs.getString("movie_id"));
         movie.add(rs.getString("amount"));
+        movie.add(rs.getString("cart_id"));
         movies.add(movie);
     }
 
@@ -29,28 +30,77 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>Shopping Cart</title>
-  </head>
-  
-  <body>
-      <div class="container">
-        <jsp:include page="/view/partial/Header.jsp" />
-        <h1 align="center">Shopping Cart</h1> <br/>
-        <input type ="button" value="Clear Cart" onclick="window.location.href='/ShopControl?clear=true'"/>
-        <input type ="button" value="Check Out" onclick="window.location.href='/view/CheckOut.jsp'"/>
-        <hr/>
-        <table align="center">
-        <tr><td width=200>Title</td><td width=200>ID</td><td width=200>Number</td></tr>
+</head>
+
+<body>
+<div class="container">
+    <jsp:include page="/view/partial/Header.jsp"/>
+    <h1 align="center">Shopping Cart</h1> <br/>
+    <div class="pull-left" style="margin-bottom: 5px;">
+        <input type="button" class="btn btn-default" value="Clear Cart" onclick="window.location.href='/ShopControl?clear=true'"/>
+        <input type="button" class="btn btn-default" value="Check Out" onclick="window.location.href='/view/CheckOut.jsp'"
+                <% if (movies.size() == 0) { %> disabled <% } %> />
+    </div>
+    <div class="pull-right">
+        <input id="update-cart" type="button" class="btn btn-default" value="Update Cart">
+    </div>
+    <table id="sales-table" class="table table-striped table-bordered dt-responsive" style="background-color: white; width: 100%;">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>ID</th>
+                <th>Quantity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
         <% for (ArrayList<String> movie : movies) { %>
             <tr>
                 <td><%= movie.get(0) %></td>
                 <td><%= movie.get(1) %></td>
-                <td><%= movie.get(2) %></td>
+                <td class="quantity-field" data-id="<%= movie.get(3) %>" tabindex="1" contenteditable="true">
+                    <%= movie.get(2) %>
+                </td>
+                <td>
+                    <button class="delete-button btn btn-default" data-id="<%= movie.get(3) %>" style="margin: auto;">
+                        <i class="fa fa-trash-o" aria-hidden="true" style="font-size:18px;"></i>
+                    </button>
+                </td>
             </tr>
         <% } %>
-        </table>
-        <jsp:include page="/view/partial/Scripts.jsp" />
-      </div>
-  </body>
+        <tbody>
+    </table>
+    <jsp:include page="/view/partial/Scripts.jsp"/>
+</div>
+</body>
+
+<script>
+
+    $(function() {
+
+        $("#sales-table").dataTable({
+            dom: "t",
+            pageLength: "500"
+        });
+
+        $(".quantity-field").on('blur', function(ev) {
+            var $el = $(this);
+            UpdateCart($el.data("id"), $el.text())
+        });
+
+        $(".delete-button").on("click", function(ev) {
+            var $el = $(this);
+            UpdateCart($el.data("id"), 0);
+        });
+
+        function UpdateCart(id, amount) {
+            console.log("Temp", id, amount);
+        }
+
+    });
+
+</script>
+
 </html>

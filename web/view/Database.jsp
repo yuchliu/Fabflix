@@ -33,7 +33,6 @@
     </div>
 
     <jsp:include page="/view/partial/Scripts.jsp" />
-    <script type="text/javascript" src="/sources/external/datatables/datatables.js"></script>
     <script>
         $(function() {
             $("#database-table").dataTable({
