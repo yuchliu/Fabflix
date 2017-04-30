@@ -10,6 +10,9 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="domain.Movie" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.Comparator" %>
 
 <%
     if (session.getAttribute("User")==null){
@@ -19,20 +22,43 @@
         return;
     }
 
-    String sql = "SELECT * FROM carts INNER JOIN movies ON movie_id = movies.id;";
+    String sql = "SELECT * FROM sales INNER JOIN movies ON movie_id = movies.id;";
     ResultSet rs = DBManager.executeQuery(sql);
 
+    final class ByValue implements Comparator<Map.Entry<String, Integer>> {
+        @Override
+        public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+            return (o2.getValue()).compareTo(o1.getValue());
+        }
+    }
+
+//    ArrayList<Movie> popMovies = new ArrayList<>();
+    HashMap<String, Integer> saleMovies = new HashMap<>();
+    while(rs.next()) {
+        String movieTitle = rs.getString("title");
+        saleMovies.put(movieTitle, saleMovies.getOrDefault(movieTitle, 0) + 1);
+    }
+    DBManager.close();
+    ArrayList<Map.Entry<String, Integer>> sortList = new ArrayList<>(saleMovies.entrySet());
+    sortList.sort(new ByValue());
     ArrayList<Movie> popMovies = new ArrayList<>();
     int count = 0;
-    while(rs.next()) {
+    for (Map.Entry<String, Integer> e: sortList){
         count++;
-        Movie movie = new Movie();
-        movie.setTitle(rs.getString("title"));
-        movie.setId(Integer.valueOf(rs.getString("movie_id")));
-        movie.setBannerUrl(rs.getString("banner_url"));
-        popMovies.add(movie);
+        String movieTitle = e.getKey();
+        System.out.println("movie title = " + movieTitle);
+        sql = "SELECT id, banner_url FROM movies WHERE title = \"" + movieTitle + "\";";
+        rs = DBManager.executeQuery(sql);
+        while (rs.next()) {
+            Movie movie = new Movie();
+            movie.setTitle(movieTitle);
+            movie.setId(rs.getInt("id"));
+            movie.setBannerUrl(rs.getString("banner_url"));
+            popMovies.add(movie);
+        }
         if (count == 6)
             break;
+
     }
     DBManager.close();
 %>
@@ -70,14 +96,30 @@
                     <h3 class="panel-title">Popular Movies</h3>
                 </div>
                 <div class="panel-body">
-                    <% for (Movie movie: popMovies) { %>
+                    <%
+                        int colCount = 0;
+                        for(Movie movie: popMovies){
+                            if (colCount == 0) {
+                    %>
+                    <div class="row">
+                        <%
+                            }
+                        %>
                         <div class="col-xs-6 col-md-4">
                             <a href="/MovieControl?id=<%=movie.getId()%>" id = "poster" class="thumbnail">
                                 <img src="<%=movie.getBannerUrl()%>" alt="<%=movie.getTitle()%>">
                                 <div><%=movie.getTitle()%></div>
                             </a>
                         </div>
-                    <% }%>
+                        <%
+                            if (colCount == 2) {
+                        %>
+                    </div>
+                    <%
+                            }
+                            colCount = (colCount + 1) % 3;
+                        }
+                    %>
                 </div>
             </div>
         </div>

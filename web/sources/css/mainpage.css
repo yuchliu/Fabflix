@@ -133,7 +133,7 @@ body .panel .panel-body {
 }
 
 #poster {
-    margin: auto;
+    margin: 5px;
     vertical-align: middle;
     font-family: cursive;
     text-align: center;
