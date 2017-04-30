@@ -84,18 +84,57 @@ div#banner {
     padding-bottom: 50px;
 }
 
+div#banner .img-responsive {
+    max-width: 15%;
+    max-height: 15%;
+
+}
+
 body {
     font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
 }
 
-body ul .nav-stacked {
-    font_size: 300%;
+#list-title {
+    /*font-size: 180%;*/
+    font-size: 1.5em;
+    border-radius: 9px 9px 0 0;
 }
 
-body .panel-body {
-    border: 1px solid grey;
-    border-radius: 5px 5px 0 0;
+body .list-group {
+    border: 1px solid darkblue;
+    border-radius: 10px;
     /*x offset, y offset, blur, color*/
     box-shadow: 0px 0px 15px white;
+}
+
+body .list-group .list-group-item {
+    font-size: 130%;
+    border-radius: 10px;
+}
+
+body .panel .panel-title {
+    font-size: 2em;
+    border-radius: 9px 9px 0 0;
+}
+
+body .panel .panel-body {
+    font-size: 100%;
+}
+
+
+#poster img {
+    min-width:100%;
+    min-height:100%;
+    max-width:100%;
+    max-height:100%;
+    margin: 10px 0 15px 0;
+    border: 1px solid black;
+}
+
+#poster {
+    margin: auto;
+    vertical-align: middle;
+    font-family: cursive;
+    text-align: center;
 }

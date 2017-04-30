@@ -46,22 +46,25 @@
 				</div>
 			</div>
 		</div>
-		<div id="browse-title" class="col-lg-12">
-			<%--<span color=#8A916F><a href="/BrowseControl?genre=all">Browse Movie By Title</a></span><br/>--%>
-			<h2>Browse Movie By Title</h2>
-				<%--<a href="/SearchControl?startby=A">A</a>--%>
-			<div class="browse-label btn-group" role="group" aria-label="...">
-				<% for (char i = '0'; i <= '9'; i++) { %>
-					<a href="/SearchControl?startby=<%=i%>"><button type="button" class="btn btn-default"><%=i%></button></a>
-				<% }%>
-			</div>
-			<div class="browse-label btn-group" role="group" aria-label="...">
-				<% for (char i = 'A'; i <= 'Z'; i++) { %>
-					<a href="/SearchControl?startby=<%=i%>"><button type="button" class="btn btn-default"><%=i%></button></a>
-				<% }%>
+		<div class="col-lg-12">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Movie Titles</h3>
+				</div>
+				<div class="panel-body">
+					<div class="browse-label btn-group" role="group" aria-label="...">
+						<% for (char i = '0'; i <= '9'; i++) { %>
+							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+						<% }%>
+					</div>
+					<div class="browse-label btn-group" role="group" aria-label="...">
+						<% for (char i = 'A'; i <= 'Z'; i++) { %>
+							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+						<% }%>
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</div>
 	<jsp:include page="/view/partial/Scripts.jsp" />
   </body>

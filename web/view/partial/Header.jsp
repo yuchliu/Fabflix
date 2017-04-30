@@ -54,7 +54,13 @@
                     <% } %>
                 </ul>
             </li>
-            <li><a href="/view/Search.jsp">Search</a>
+            <form class="navbar-form navbar-left" action="/SearchControl" method="post">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-control" placeholder="...Titles">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <li><a href="/view/Search.jsp">Advanced Search</a></li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Databases <span class="caret"></span>
@@ -72,7 +78,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/view/shopCart.jsp"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:18px;padding-top:2px;"></i></a></li>
-            <li><a><%=user.getFirstName()%></a></li>
+            <li><a><%=user.getFirstName()%> <%=user.getLastName()%></a></li>
             <li style="margin-right: 15px;"><a href="/LoginControl?logout=true">Log Out</a></li>
         </ul>
     </div>

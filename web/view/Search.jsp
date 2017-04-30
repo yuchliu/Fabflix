@@ -20,7 +20,7 @@
 	<form action="/SearchControl" method="post">
 
 		<div class="form-group">
-			<label>First Name:</label>
+			<label>Star First Name:</label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-user"></i></span>
 				<input type="text" name="firstName" class="form-control" placeholder="...first name">
@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="form-group">
-			<label>Last Name:</label>
+			<label>Star Last Name:</label>
 			<div class="input-group">
 				<span class="input-group-addon"><i class="fa fa-users"></i></span>
 				<input type="text" name="lastName" class="form-control" placeholder="...last name">
