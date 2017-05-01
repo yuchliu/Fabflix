@@ -14,8 +14,8 @@
 </head>
 
 <body>
+<jsp:include page="/view/partial/Header.jsp" />
 <div class="container">
-    <jsp:include page="/view/partial/Header.jsp" />
     <h1 align="center" class="my-title">Check Out</h1><hr><br>
 
     <% if(request.getAttribute("error") != null) { %>

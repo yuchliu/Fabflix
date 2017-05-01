@@ -67,7 +67,7 @@
 			director: "<%= clauss.getDirector() %>",
 			firstName: "<%= clauss.getFirstName() %>",
 			lastName: "<%= clauss.getLastName() %>",
-			genre: "<%= clauss.getGenre() %>"
+			genre: "<%= clauss.getGenre() %>",
             startBy: "<%= clauss.getStartBy() %>"
 		};
 

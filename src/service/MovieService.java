@@ -133,7 +133,6 @@ public class MovieService {
 		String lastName = clauss.getLastName();
 		String genre = clauss.getGenre();
 		String startBy = clauss.getStartBy();
-		System.out.println("startBy = " + startBy);
 		
 		String condition = "";
 		if ("".equals(title+year+director+firstName+lastName+genre+startBy)) ;
