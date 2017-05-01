@@ -67,8 +67,8 @@
 			director: "<%= clauss.getDirector() %>",
 			firstName: "<%= clauss.getFirstName() %>",
 			lastName: "<%= clauss.getLastName() %>",
-			genre: "<%= clauss.getGenre() %>"
-            startBy: "<%= clauss.getStartBy() %>"
+			genre: "<%= clauss.getGenre() %>",
+            startby: "<%= clauss.getStartBy() %>"
 		};
 
         $(".page-selector").twbsPagination({
