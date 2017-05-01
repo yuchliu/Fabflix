@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="/sources/external/datatables/datatables.css"/>
 </head>
 <body style="background-color: white;">
+    <jsp:include page="/view/partial/Header.jsp" />
     <div class="container" style="width:80%; margin: auto;">
-        <jsp:include page="/view/partial/Header.jsp" />
         <table id="database-table" class="table table-striped table-bordered dt-responsive" style="display: none;">
             <thead>
                 <tr>

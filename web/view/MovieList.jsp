@@ -21,8 +21,8 @@
 </head>
 
 <body>
+<jsp:include page="/view/partial/Header.jsp" />
 <div class="container">
-	<jsp:include page="/view/partial/Header.jsp" />
 	<jsp:include page="/view/partial/Scripts.jsp" />
 	<div class="row">
 		<div class="col-sm-12 col-md-6">

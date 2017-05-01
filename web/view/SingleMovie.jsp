@@ -17,14 +17,14 @@
     </head>
 
     <body>
+        <jsp:include page="/view/partial/Header.jsp" />
         <div class="container">
-            <jsp:include page="/view/partial/Header.jsp" />
             <div class="row">
                 <div class="row-items col-sm-6">
                     <img id="mv-poster" alt="Banner Url Expired!" src="<%=movie.getBannerUrl()%>"/><br>
                 </div>
                 <div class="info-panel row-items col-sm-6">
-                    <div class="panel panel-success">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><%=movie.getTitle()%></h3>
                         </div>
@@ -37,7 +37,7 @@
                                     <li class="list-group-item">Year : <%=movie.getYear()%></li>
                                     <li class="list-group-item">Movie ID : <%=movie.getId() %></li>
                                     <li class="list-group-item">
-                                        <p>Trailer</p>
+                                        <p>Trailer: </p>
                                         <div class="embed-responsive embed-responsive-16by9">
                                             <iframe class="embed-responsive-item" src="<%= movie.getTrailerUrl().replace("watch?v=", "embed/") %>"></iframe>
                                         </div>

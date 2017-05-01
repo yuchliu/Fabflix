@@ -15,11 +15,11 @@
   </head>
   
   <body>
+  	<jsp:include page="/view/partial/Header.jsp" />
 	<div class="container">
-		<jsp:include page="/view/partial/Header.jsp" />
-		<h1 align="center">Browse Movie</h1>
+		<h1 align="center" class="my-title">Browse Movie</h1>
 		<div class="col-lg-12">
-			<div class="panel panel-success">
+			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<h3 class="panel-title">Movie Genres</h3>
 				</div>
@@ -35,7 +35,7 @@
 
 					<div class="row">
 						<% for (String genre: chunk) { %>
-						<div class="col-sm-3 list-group">
+						<div class="col-lg-3 col-sm-6 list-group">
 							<a href="/BrowseControl?genre=<%=genre%>">
 								<button type="button" class="list-group-item"><%=genre%></button>
 							</a>
@@ -46,22 +46,20 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-12">
-			<div class="panel panel-success">
-				<div class="panel-heading">
-					<h3 class="panel-title">Movie Titles</h3>
+		<h3 align="center" class="my-title">Search by Titles</h3>
+		<div id="browse-title" class="col-lg-12">
+			<div class="row">
+				<div class="browse-label btn-group" role="group" aria-label="...">
+					<% for (char i = '0'; i <= '9'; i++) { %>
+						<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+					<% }%>
 				</div>
-				<div class="panel-body">
-					<div class="browse-label btn-group" role="group" aria-label="...">
-						<% for (char i = '0'; i <= '9'; i++) { %>
-							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
-						<% }%>
-					</div>
-					<div class="browse-label btn-group" role="group" aria-label="...">
-						<% for (char i = 'A'; i <= 'Z'; i++) { %>
-							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
-						<% }%>
-					</div>
+			</div>
+			<div class="row">
+				<div class="browse-label btn-group" role="group" aria-label="...">
+					<% for (char i = 'A'; i <= 'Z'; i++) { %>
+						<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+					<% }%>
 				</div>
 			</div>
 		</div>
