@@ -18,7 +18,6 @@
 	<div class="container">
 		<jsp:include page="/view/partial/Header.jsp" />
 		<h1 align="center">Browse Movie</h1>
-		<span color=#8A916F><a href="/BrowseControl?genre=all">Browse Movie By Title</a></span><br/><hr/>
 		<div class="col-lg-12">
 			<div class="panel panel-success">
 				<div class="panel-heading">
@@ -37,12 +36,32 @@
 					<div class="row">
 						<% for (String genre: chunk) { %>
 						<div class="col-sm-3 list-group">
-							<button type="button" class="list-group-item"><a href="/BrowseControl?genre=<%=genre%>"><%=genre%></a></button>
+							<a href="/BrowseControl?genre=<%=genre%>">
+								<button type="button" class="list-group-item"><%=genre%></button>
+							</a>
 						</div>
 						<% } %>
 					</div>
-
 					<% } %>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-12">
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">Movie Titles</h3>
+				</div>
+				<div class="panel-body">
+					<div class="browse-label btn-group" role="group" aria-label="...">
+						<% for (char i = '0'; i <= '9'; i++) { %>
+							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+						<% }%>
+					</div>
+					<div class="browse-label btn-group" role="group" aria-label="...">
+						<% for (char i = 'A'; i <= 'Z'; i++) { %>
+							<a href="/SearchControl?startby=<%=i%>" type="button" class="btn btn-default"><%=i%></a>
+						<% }%>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -68,6 +68,7 @@
 			firstName: "<%= clauss.getFirstName() %>",
 			lastName: "<%= clauss.getLastName() %>",
 			genre: "<%= clauss.getGenre() %>"
+            startBy: "<%= clauss.getStartBy() %>"
 		};
 
         $(".page-selector").twbsPagination({

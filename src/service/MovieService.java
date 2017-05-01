@@ -132,12 +132,15 @@ public class MovieService {
 		String firstName = clauss.getFirstName();
 		String lastName = clauss.getLastName();
 		String genre = clauss.getGenre();
+		String startBy = clauss.getStartBy();
+		System.out.println("startBy = " + startBy);
 		
 		String condition = "";
-		if ("".equals(title+year+director+firstName+lastName+genre)) ;
+		if ("".equals(title+year+director+firstName+lastName+genre+startBy)) ;
 		else if("".equals(genre)){
 			boolean isFirstCondition = true;
 			condition += "WHERE ";
+
 			if(firstName!=null && !"".equals(firstName)) {
 				condition += "stars.first_name LIKE \""+"%"+firstName+"%\" "; 
 				isFirstCondition = false;
@@ -169,7 +172,14 @@ public class MovieService {
 			if(year!=null && !"".equals(year)) {
 				condition += isFirstCondition ? "" : "AND ";
 				condition += "movies.year = "+year;
-			}			
+				isFirstCondition = false;
+			}
+
+			if (startBy!=null && !"".equals(startBy)) {
+				condition += isFirstCondition ? "" : "AND ";
+				condition += "movies.title LIKE \""+startBy+"%\" ";
+//				isFirstCondition = false;
+			}
 		}
 		else {
 			this.byGenre = true;

@@ -6,21 +6,22 @@ public class Clauss {
 	private String title = "";
 	private String year = "";
 	private String director = "";
+	private String startBy = "";
 	//star attribute
 	private String firstName="";
 	private String lastName="";
 	//genre attribute
 	private String genre="";
 	private String source="search";
-
-
 	public String getSource() {
 		return source;
 	}
 	public void setSource(String source) {
 		this.source = source;
-		System.out.println("now source = "+source);
 	}
+
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -62,5 +63,7 @@ public class Clauss {
 	}
 	public void setOrder(String order) {
 		this.order = order;
-	}	
+	}
+	public String getStartBy() { return startBy; }
+	public void setStartBy(String startBy) { this.startBy = startBy; }
 }

@@ -30,9 +30,7 @@ public class SearchControl extends HttpServlet {
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
 		String genre = request.getParameter("genre");
-		String source = request.getParameter("source");
-		if (source==null)
-			source = "search";
+		String startBy = request.getParameter("startby");
 
 		// Set parameters
 		clauss = new Clauss();
@@ -44,7 +42,7 @@ public class SearchControl extends HttpServlet {
 		if(firstName != null) clauss.setFirstName(firstName.trim());
 		if(lastName != null) clauss.setLastName(lastName.trim());
 		if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
-		if (source != null) clauss.setSource(source);
+		if (startBy != null) clauss.setStartBy(startBy.trim());
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
@@ -70,7 +68,7 @@ public class SearchControl extends HttpServlet {
 			request.getRequestDispatcher("/view/partial/MovieList.jsp").forward(request, response);
 		}
 		else {
-			request.getRequestDispatcher("/view/MovieList.jsp").forward(request, response);;
+			request.getRequestDispatcher("/view/MovieList.jsp").forward(request, response);
 		}
 
 	}
