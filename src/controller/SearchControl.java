@@ -41,8 +41,8 @@ public class SearchControl extends HttpServlet {
 		if(director != null) clauss.setDirector(director.trim());
 		if(firstName != null) clauss.setFirstName(firstName.trim());
 		if(lastName != null) clauss.setLastName(lastName.trim());
-		if (genre != null && !"all".equals(genre))clauss.setGenre(genre);
-		if (startBy != null) clauss.setStartBy(startBy.trim());
+		if(genre != null && !"all".equals(genre))clauss.setGenre(genre);
+		if(startBy != null) clauss.setStartBy(startBy.trim());
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));

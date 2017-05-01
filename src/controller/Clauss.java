@@ -19,6 +19,7 @@ public class Clauss {
 	public void setSource(String source) {
 		this.source = source;
 	}
+
 	public String getTitle() {
 		return title;
 	}

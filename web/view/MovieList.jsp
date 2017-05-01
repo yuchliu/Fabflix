@@ -39,6 +39,13 @@
 				<div class="form-group">
 					<button id="movie-title-sort" class="btn btn-default">Title&nbsp;</button>
 				</div>
+				<div class="input-group pull-right">
+
+					<input id="page-size-field" type="number" min="1" class="form-control" value="<%= pageSize %>" style="max-width:75px;">
+					<span class="input-group-btn">
+						<button id="page-size-button" class="btn btn-secondary" type="button" style="background-color: white;border: 1px solid lightgray;">Apply</button>
+					</span>
+				</div>
 			</div>
 		</div>
 		<div class="col-sm-12 col-md-6">
@@ -68,7 +75,7 @@
 			firstName: "<%= clauss.getFirstName() %>",
 			lastName: "<%= clauss.getLastName() %>",
 			genre: "<%= clauss.getGenre() %>",
-            startBy: "<%= clauss.getStartBy() %>"
+            startby: "<%= clauss.getStartBy() %>"
 		};
 
         $(".page-selector").twbsPagination({
@@ -173,6 +180,17 @@
             refreshMovieList(1);
 
         });
+
+        $("#page-size-button").on("click", function() {
+
+            var size = $("#page-size-field").val();
+            if(isNaN(size) || parseInt(size) < 1)
+                size = 10;
+
+            params.pageSize = size;
+            window.location.href = "/SearchControl?" + $.param(params);
+
+		});
 
     });
 
