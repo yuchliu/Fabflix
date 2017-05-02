@@ -35,9 +35,9 @@
 </head>
 
 <body>
+<jsp:include page="/view/partial/Header.jsp"/>
 <div class="container">
-    <jsp:include page="/view/partial/Header.jsp"/>
-    <h1 align="center">Shopping Cart</h1> <br/>
+    <h1 align="center" class="my-title">Shopping Cart</h1> <br/>
     <div class="pull-left" style="margin-bottom: 5px;">
         <input type="button" class="btn btn-default" value="Clear Cart" onclick="window.location.href='/ShopControl?clear=true'"/>
         <input type="button" class="btn btn-default" value="Check Out" onclick="window.location.href='/view/CheckOut.jsp'"

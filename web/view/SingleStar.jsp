@@ -18,8 +18,8 @@
     </head>
   
     <body>
+        <jsp:include page="/view/partial/Header.jsp" />
         <div class="container">
-            <jsp:include page="/view/partial/Header.jsp" />
             <div class="row">
                 <div class="row-items col-sm-6">
                     <img id="photo" alt="Photo Url Expired!" src="<%=star.getPhotoUrl()%>"/><br>
@@ -27,7 +27,7 @@
 
 
                 <div class="info-panel row-items col-sm-6">
-                    <div class="panel panel-success">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><%=star.getName()%></h3>
                         </div>
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="prod-panel col-lg-12">
-                    <div class="panel panel-success">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title">Production</h3>
                         </div>

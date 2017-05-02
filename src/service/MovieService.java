@@ -134,6 +134,7 @@ public class MovieService {
 		String genre = clauss.getGenre();
 		String startBy = clauss.getStartBy();
 
+
 		String condition = "";
 		if ("".equals(title+year+director+firstName+lastName+genre+startBy)) ;
 		else if("".equals(genre) && "".equals(startBy)){
@@ -168,13 +169,6 @@ public class MovieService {
 			if(year!=null && !"".equals(year)) {
 				condition += isFirstCondition ? "" : "AND ";
 				condition += "movies.year = "+year;
-				isFirstCondition = false;
-			}
-
-			if (startBy!=null && !"".equals(startBy)) {
-				condition += isFirstCondition ? "" : "AND ";
-				condition += "movies.title LIKE \""+startBy+"%\" ";
-//				isFirstCondition = false;
 			}
 		} else if(!"".equals(startBy)) {
 			condition = "WHERE movies.title LIKE \""+startBy+"%\" ";

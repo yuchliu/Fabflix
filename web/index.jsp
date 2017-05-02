@@ -12,6 +12,7 @@
     <title>Fabflix</title>
     <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/sources/css/site.css">
     <link rel="stylesheet" href="/sources/css/index.css">
   </head>
 
@@ -33,7 +34,7 @@
     <% } %>
     <div class="login-form container col-xs-1 col-centered container-bordered" style="width:425px;">
       <div class="form-group">
-        <h1 class="login-header">Fabflix Login</h1>
+        <h1 class="login-header my-title">Fabflix Login</h1>
       </div>
       <br />
       <form action='/LoginControl' method='post'>

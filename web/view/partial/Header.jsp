@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="/sources/css/site.css">
 <link rel="stylesheet" href="/sources/css/header.css">
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <input type="text" name="title" class="form-control" placeholder="...Titles">
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-default">Search</button>
             </form>
             <li><a href="/view/Search.jsp">Advanced Search</a></li>
             <li class="dropdown">

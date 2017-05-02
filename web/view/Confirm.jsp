@@ -19,9 +19,9 @@
 </head>
 
 <body>
+<jsp:include page="/view/partial/Header.jsp" />
 <div class="container">
-    <jsp:include page="/view/partial/Header.jsp" />
-    <h1 align="center">Transaction Info:</h1> <br/>
+    <h1 align="center" class="my-title">Transaction Info</h1> <br/>
     <div class="alert alert-success">
         Transaction processed successfully.
     </div>

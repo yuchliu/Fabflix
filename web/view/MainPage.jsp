@@ -72,8 +72,8 @@
 
 
 <body>
+    <jsp:include page="/view/partial/Header.jsp" />
     <div class="container">
-        <jsp:include page="/view/partial/Header.jsp" />
         <header>
             <div class="container" id="banner" tabindex="-1">
                 <div class="row">
@@ -128,7 +128,7 @@
             <div class="list-group">
                 <span id="list-title" class="list-group-item active">People also like:</span>
                 <a href="/view/Search.jsp" class="list-group-item">Search Movies</a>
-                <a href="/view/Browse.jsp" class="list-group-item">Browse Movies</a>
+                <a id="browse-movie" href="/view/Browse.jsp" class="list-group-item">Browse Movies</a>
             </div>
         </div>
         <jsp:include page="/view/partial/Scripts.jsp" />

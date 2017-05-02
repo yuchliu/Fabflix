@@ -14,9 +14,9 @@
 </head>
 
 <body>
+<jsp:include page="/view/partial/Header.jsp" />
 <div class="container">
-	<jsp:include page="/view/partial/Header.jsp" />
-	<h1 align="center">Movie Search</h1>
+	<h1 align="center" class="my-title">Movie Search</h1>
 	<form action="/SearchControl" method="post">
 
 		<div class="form-group">
