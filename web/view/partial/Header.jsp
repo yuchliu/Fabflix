@@ -61,21 +61,6 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
             <li><a href="/view/Search.jsp">Advanced Search</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    Databases <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/DatabaseControl?dbName=creditcards">creditcards</a></li>
-                    <li><a href="/DatabaseControl?dbName=customers">customers</a></li>
-                    <li><a href="/DatabaseControl?dbName=genres">genres</a></li>
-                    <li><a href="/DatabaseControl?dbName=genres_in_movies">genres_in_movies</a></li>
-                    <li><a href="DatabaseControl?dbName=sales">sales</a></li>
-                    <li><a href="/DatabaseControl?dbName=stars">stars</a></li>
-                    <li><a href="/DatabaseControl?dbName=stars_in_movies">stars_in_movies</a></li>
-                    <li><a href="/DatabaseControl?dbName=carts">carts</a></li>
-                </ul>
-            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/view/shopCart.jsp"><i class="fa fa-shopping-cart" aria-hidden="true" style="font-size:18px;padding-top:1px;"></i></a></li>
