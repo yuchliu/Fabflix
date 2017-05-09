@@ -1,4 +1,7 @@
 # Fabflix
+add "localhost" to your reCAPTCHA domain list.
+
+Add all libraries under the lib to artifact if you have class not found exception
 # (IMPORTANT!)HTTPS configuration
 ***Need to set up HTTPS for running the new commits after 05/06/2017***
 

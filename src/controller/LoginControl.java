@@ -19,11 +19,20 @@ public class LoginControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
+		System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
+		// Verify reCAPTCHA.
+		boolean valid = VerifyUtils.verify(gRecaptchaResponse);
 		if (request.getParameter("logout")!=null && "true".equals(request.getParameter("logout")))
 		{
 			request.getSession().removeAttribute("User");
 			System.out.print("Enter Logout!!!!");
 			response.sendRedirect("/");
+		}
+		else if (!valid) {
+			request.setAttribute("error", true);
+			request.setAttribute("errInfo","Please solve the reCAPTCHA!");
+			request.getRequestDispatcher("/").forward(request, response);
 		}
 		else {
 			String email = request.getParameter("email");

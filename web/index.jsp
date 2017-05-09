@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
     <link rel="stylesheet" href="/sources/css/site.css">
     <link rel="stylesheet" href="/sources/css/index.css">
+    <%-- Google reCaptcha Script --%>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
 
   <body>
@@ -52,6 +54,7 @@
             <input name='password' id="password-field" type="password" class="form-control" />
           </div>
         </div>
+        <div align="center" class="g-recaptcha" data-sitekey="6Le_PCAUAAAAAL4Sy2Hzq1r0XV_Uk68FhW46Abk1"></div>
         <br />
         <div class="form-group">
           <button class="btn btn-primary btn-lg btn-block login-button" type='submit'>Submit</button>
