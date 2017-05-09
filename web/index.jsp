@@ -44,7 +44,7 @@
           <label for="email-field">Email Address:</label>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-            <input name='email' id="email-field" type="email" class="form-control" />
+            <input name='email' id="email-field" type="text" class="form-control" />
           </div>
         </div>
         <div class="form-group">
