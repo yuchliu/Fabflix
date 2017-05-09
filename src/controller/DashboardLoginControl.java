@@ -28,14 +28,14 @@ public class DashboardLoginControl extends HttpServlet {
         boolean valid = VerifyUtils.verify(gRecaptchaResponse);
         if (request.getParameter("logout")!=null && "true".equals(request.getParameter("logout")))
         {
-            request.getSession().removeAttribute("User");
+            request.getSession().removeAttribute("Employee");
             System.out.print("Enter Logout!!!!");
-            response.sendRedirect("/_dashboard");
+            response.sendRedirect("/fabflix/_dashboard");
         }
         else if (!valid) {
             request.setAttribute("error", true);
             request.setAttribute("errInfo","Please solve the reCAPTCHA!");
-            request.getRequestDispatcher("/_dashboard").forward(request, response);
+            request.getRequestDispatcher("/fabflix/_dashboard").forward(request, response);
         }
         else {
             String email = request.getParameter("email");
@@ -60,7 +60,7 @@ public class DashboardLoginControl extends HttpServlet {
                 {
                     request.setAttribute("error", true);
                     request.setAttribute("errInfo","Invalid username or password!");
-                    request.getRequestDispatcher("/_dashboard").forward(request, response);
+                    request.getRequestDispatcher("/fabflix/_dashboard").forward(request, response);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

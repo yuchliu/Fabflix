@@ -11,18 +11,14 @@ import java.io.IOException;
  * Created by cjk98 on 5/9/2017.
  *
  */
-
-@WebServlet("/fabflix/_dashboard")
-public class _dashboardServlet extends HttpServlet {
-    //TODO: should we use 1L for all classes?
+@WebServlet("/Dashboard")
+public class DashboardControl extends HttpServlet{
     private static final long serialVersionUID = 1L;
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/view/DashboardLogin.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doGet(req, resp);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
-
 }
