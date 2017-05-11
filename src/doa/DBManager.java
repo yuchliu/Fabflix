@@ -1,6 +1,9 @@
 package doa;
 
+import domain.MetaData;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBManager {
 
@@ -38,7 +41,75 @@ public class DBManager {
 		}
 		return -1;
 	}
-	
+
+	public static MetaData getMetaData() {
+		conn = getConnection();
+		ResultSet resultTables = null;
+		ResultSet resultColumns = null;
+		ArrayList<String> tables = new ArrayList<>();
+		MetaData metaData = new MetaData();
+
+		try {
+			DatabaseMetaData metadata = conn.getMetaData();
+			String[] tableTypes = {"TABLE"};
+			resultTables = metadata.getTables(null, "%", "%", tableTypes);
+
+			while (resultTables.next())
+			{
+				String tableName = resultTables.getString("TABLE_NAME");
+				tables.add(tableName);
+				metaData.tableMap.put(tableName, new MetaData.Table(tableName));
+			}
+
+			for (String tableName : tables)
+			{
+/*				System.out.println("Table: " + tableName);
+				System.out.println("----------------");*/
+
+				resultColumns = metadata.getColumns(null, "%", tableName, "%");
+
+				while (resultColumns.next())
+				{
+					String colName = resultColumns.getString("COLUMN_NAME");
+					String colType = resultColumns.getString("TYPE_NAME");
+					metaData.tableMap.get(tableName).colMap.put(colName, new MetaData.Column(colName, colType));
+
+/*					StringBuffer buffer = new StringBuffer();
+					buffer.append(colName);
+					buffer.append(": ");
+					buffer.append(colType);
+					System.out.println(buffer.toString());*/
+				}
+
+//				System.out.println("");
+			}
+		}
+		catch (SQLException e)
+		{
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+		}
+		finally
+		{
+			try
+			{
+				resultTables.close();
+				resultColumns.close();
+			}
+			catch (SQLException e) {
+				System.err.println("Error");
+				while(e != null) {
+					System.out.println("Error: " + e.getMessage());
+					e = e.getNextException();
+				}
+			}
+		}
+		return metaData;
+	}
+
 	private static boolean openConnection()
 	{
 		try 
@@ -77,8 +148,8 @@ public class DBManager {
 		}
 		return conn;
 	}
-	
-	public static void close() 
+
+	public static void close()
 	{
 		try 
 		{

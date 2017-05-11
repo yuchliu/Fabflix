@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="domain.MetaData" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="doa.DBManager" %>
 
 <%
     if (session.getAttribute("Employee")==null){
@@ -76,6 +80,29 @@
                 <button class="btn btn-default" type="reset"><i class="fa fa-refresh"></i> Reset</button>
 
             </form>
+            <h1 align="center" class="my-title">MetaData</h1>
+            <% MetaData metaData = DBManager.getMetaData();%>
+            <p>
+            <%
+                for (Map.Entry<String, MetaData.Table> tableEntry: metaData.tableMap.entrySet()) {
+
+                    out.println("Table: " + tableEntry.getValue().tableName);
+                    out.println("----------------");
+
+                    for (Map.Entry<String, MetaData.Column> colEntry : tableEntry.getValue().colMap.entrySet()) {
+                        StringBuffer buffer = new StringBuffer();
+                        buffer.append(colEntry.getValue().colName);
+                        buffer.append(": ");
+                        buffer.append(colEntry.getValue().colType);
+                        out.println(buffer.toString());
+                    }
+                    out.println("");
+                }
+            %>
+            </p>
+
+
+
             <jsp:include page="/view/partial/Scripts.jsp" />
         </div>
     </body>
