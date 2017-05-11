@@ -24,7 +24,20 @@
         <jsp:include page="/view/partial/DashboardHeader.jsp" />
         <div class="container">
             <h1 align="center" class="my-title">Adding Movie Star</h1>
-            <form action="#" method="post">
+
+            <% if(request.getAttribute("error") != null) { %>
+                <% if((Boolean) request.getAttribute("error")) { %>
+                    <div class="alert alert-danger">
+                        Not a valid star information.
+                    </div>
+                <% } else { %>
+                    <div class="alert alert-success">
+                        Success: A new star inserted
+                    </div>
+                <% } %>
+            <% } %>
+
+            <form action="/DashboardControl" method="post">
                 <div class="form-group">
                     <label>Star First Name:</label>
                     <div class="input-group">
@@ -45,7 +58,7 @@
                     <label>Date of Birth:</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-                        <input type="text" name="dob" class="form-control" placeholder="...date of birthday">
+                        <input type="text" name="dob" class="form-control" placeholder="...date of birthday(YYYY-MM-DD)">
                     </div>
                 </div>
 
@@ -53,7 +66,7 @@
                     <label>Photo URL:</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-play"></i></span>
-                        <input type="text" name="photo_URL" class="form-control" placeholder="...paste photo url here">
+                        <input type="text" name="photo_URL" class="form-control" placeholder="...put photo url here">
                     </div>
                 </div>
 
