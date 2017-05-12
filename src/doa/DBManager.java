@@ -42,6 +42,33 @@ public class DBManager {
 		return -1;
 	}
 
+	public static Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
+	{
+		conn = getConnection();
+		try {
+
+			CallableStatement cs = conn.prepareCall(procedure);
+
+			int i = 0;
+			for (i=0; i!=params.length; ++i){
+				cs.setString(i+1,params[i]);
+			}
+			for (int j = 0; j!=outParams.length; ++j){
+				cs.registerOutParameter(i+1,outParams[j]);
+			}
+
+			ResultSet rs = cs.executeQuery();
+
+			Object[] output = {rs, cs};
+			return output;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	public static MetaData getMetaData() {
 		conn = getConnection();
 		ResultSet resultTables = null;
