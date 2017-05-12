@@ -17,8 +17,9 @@
 
 <base href="<%=basePath%>">
 
+<!-- Bootstrap Latest compiled and minified CSS -->
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
+<link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap-theme.css">
 <link rel="stylesheet" href="/sources/css/site.css">
 <link rel="stylesheet" href="/sources/css/header.css">
 

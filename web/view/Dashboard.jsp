@@ -19,16 +19,23 @@
         <div class="container">
             <h1 align="center" class="my-title">MetaData</h1>
             <% MetaData metaData = DBManager.getMetaData();%>
-            <div>
-            <% for (Map.Entry<String, MetaData.Table> tableEntry: metaData.tableMap.entrySet()) { %>
-                <ul><% out.println("Table: " + tableEntry.getValue().tableName); %></ul>
-                <ul><% out.println("----------------"); %></ul>
-                <% for (Map.Entry<String, MetaData.Column> colEntry : tableEntry.getValue().colMap.entrySet()) { %>
-                    <% String outString = colEntry.getValue().colName + ": " + colEntry.getValue().colType; %>
-                    <ul><% out.print(outString); %></ul>
+            <div class="panel panel-primary">
+                <div class="panel-heading">MetaData for moviedb database</div>
+                <table class="table">
+                    <tr>
+                        <th>Table Name</th>
+                        <th>Column</th>
+                    </tr>
+                <% for (Map.Entry<String, MetaData.Table> tableEntry: metaData.tableMap.entrySet()) { %>
+                    <tr>
+                        <th><% out.println(tableEntry.getValue().tableName); %></th>
+                    <% for (Map.Entry<String, MetaData.Column> colEntry : tableEntry.getValue().colMap.entrySet()) { %>
+                        <% String outString = colEntry.getValue().colName + ": " + colEntry.getValue().colType; %>
+                        <td><% out.print(outString); %></td>
+                    <% } %>
+                    </tr>
                 <% } %>
-                <ul><% out.print(""); %></ul>
-            <% } %>
+                </table>
             </div>
 
             <jsp:include page="/view/partial/Scripts.jsp" />
