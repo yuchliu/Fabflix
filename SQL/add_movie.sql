@@ -22,7 +22,6 @@ CREATE PROCEDURE `add_movie`(
 )
 BEGIN
 
-	DECLARE out_message VARCHAR(128);
     DECLARE movie_id INT;
     DECLARE genre_id INT;
     DECLARE star_id INT;
@@ -33,7 +32,7 @@ BEGIN
     THEN
 
 		-- Movie exists, do nothing.
-        SET out_message = CONCAT('ERROR: A movie already exists with that title, ID: ', movie_id);
+        SET out_message := CONCAT('ERROR: A movie already exists with that title, ID: ', movie_id);
 
     ELSE
 
@@ -59,7 +58,7 @@ BEGIN
         INSERT INTO genres_in_movies (genre_id, movie_id) VALUE (genre_id, movie_id);
 		INSERT INTO stars_in_movies (star_id, movie_id) VALUE (star_id, movie_id);
 
-		SET out_message = 'Successfully created all fields.';
+		SET out_message := 'Successfully created all fields.';
 
 	END IF;
 
