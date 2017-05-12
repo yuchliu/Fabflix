@@ -20,6 +20,7 @@
 <!-- Bootstrap Latest compiled and minified CSS -->
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
 <link rel="stylesheet" href="/sources/css/site.css">
 <link rel="stylesheet" href="/sources/css/header.css">
 
@@ -39,6 +40,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li><a href="/view/AddStar.jsp">Add Star</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li><a href="/view/AddMovie.jsp">Add Movie</a></li>
         </ul>
         <ul class="nav navbar-nav">
             <li><a href="/view/Dashboard.jsp">MetaData</a></li>
