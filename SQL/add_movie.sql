@@ -1,3 +1,6 @@
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `add_movie`;
 CREATE PROCEDURE `add_movie`(
 
 	-- Movie Arguments
@@ -63,3 +66,6 @@ BEGIN
 	END IF;
 
 END
+$$
+
+DELIMITER ;
