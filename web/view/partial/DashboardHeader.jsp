@@ -1,4 +1,14 @@
 <%@ page import="domain.Employee" pageEncoding="ISO-8859-1"%>
+
+<%
+    if (session.getAttribute("Employee")==null){
+        request.setAttribute("error", true);
+        request.setAttribute("errInfo","Please Login!");
+        request.getRequestDispatcher("/fabflix/_dashboard").forward(request, response);
+        return;
+    }
+%>
+
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,14 +30,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/view/DashboardLogin.jsp">
+        <a class="navbar-brand" href="/view/Dashboard.jsp">
             <i class="fa fa-video-camera" aria-hidden="true"></i><span style="padding-left: 15px;">FabFlix</span>
         </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li><a href="/view/Search.jsp">Advanced Search</a></li>
+            <li><a href="/view/AddStar.jsp">Add Star</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+            <li><a href="/view/Dashboard.jsp">MetaData</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a><%=employee.getFullName()%></a></li>

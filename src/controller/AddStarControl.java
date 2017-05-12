@@ -13,8 +13,8 @@ import java.io.IOException;
  * Created by cjk98 on 5/9/2017.
  *
  */
-@WebServlet("/DashboardControl")
-public class DashboardControl extends HttpServlet{
+@WebServlet("/AddStarControl")
+public class AddStarControl extends HttpServlet{
     private static final long serialVersionUID = 1L;
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
