@@ -24,20 +24,26 @@ public class DashboardLoginControl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
         System.out.println("gRecaptchaResponse=" + gRecaptchaResponse);
-        // Verify reCAPTCHA.
-        boolean valid = VerifyUtils.verify(gRecaptchaResponse);
         if (request.getParameter("logout")!=null && "true".equals(request.getParameter("logout")))
         {
             request.getSession().removeAttribute("Employee");
+            request.getSession().removeAttribute("reCAPTCHA");
             System.out.print("Enter Logout!!!!");
             response.sendRedirect("/fabflix/_dashboard");
         }
-        else if (!valid) {
-            request.setAttribute("error", true);
-            request.setAttribute("errInfo","Please solve the reCAPTCHA!");
-            request.getRequestDispatcher("/fabflix/_dashboard").forward(request, response);
-        }
         else {
+            if (request.getSession().getAttribute("reCAPTCHA") == null) {
+                // Verify reCAPTCHA.
+                boolean valid = VerifyUtils.verify(gRecaptchaResponse);
+                if (!valid) {
+                    request.setAttribute("error", true);
+                    request.setAttribute("errInfo","Please solve the reCAPTCHA!");
+                    request.getRequestDispatcher("/").forward(request, response);
+                    return;
+                }
+                else
+                    request.getSession().setAttribute("reCAPTCHA", true);
+            }
             String email = request.getParameter("email");
             String pwd = request.getParameter("password");
 
