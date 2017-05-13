@@ -68,4 +68,10 @@ CREATE PROCEDURE `add_movie`(
 	END
 $$
 
+<<<<<<< HEAD
+=======
+END
+$$
+
+>>>>>>> Jeremy_Changes
 DELIMITER ;
