@@ -1,3 +1,18 @@
 body .panel-heading {
     font-size: 150%;
 }
+
+body .first-col {
+    border-right: 1px solid lightgrey;
+    width: 15%;
+}
+
+body table {
+    table-layout: fixed;
+}
+
+body table th,
+body table td {
+    font-size: 100%;
+    overflow: hidden;
+}

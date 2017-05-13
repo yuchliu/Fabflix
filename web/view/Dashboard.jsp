@@ -13,6 +13,7 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <link rel="stylesheet" href="/sources/css/dashboard.css">
     </head>
     <body>
         <jsp:include page="/view/partial/DashboardHeader.jsp" />
@@ -23,12 +24,12 @@
                 <div class="panel-heading">MetaData for moviedb database</div>
                 <table class="table">
                     <tr>
-                        <th>Table Name</th>
-                        <th>Column</th>
+                        <th class="first-col">Table Name</th>
+                        <th colspan="3">Column Name: Type</th>
                     </tr>
                 <% for (Map.Entry<String, MetaData.Table> tableEntry: metaData.tableMap.entrySet()) { %>
                     <tr>
-                        <th><% out.println(tableEntry.getValue().tableName); %></th>
+                        <th class="first-col"><% out.println(tableEntry.getValue().tableName); %></th>
                     <% for (Map.Entry<String, MetaData.Column> colEntry : tableEntry.getValue().colMap.entrySet()) { %>
                         <% String outString = colEntry.getValue().colName + ": " + colEntry.getValue().colType; %>
                         <td><% out.print(outString); %></td>
