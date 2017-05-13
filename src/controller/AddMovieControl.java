@@ -40,15 +40,19 @@ public class AddMovieControl extends HttpServlet{
 
         Object[] output = DBManager.executeStoredProcedure(procedure, spArgs, outArgs);
 
-        ResultSet rs = (ResultSet) output[0];
-        CallableStatement cs = (CallableStatement) output[1];
+        String message = "Unknown error. Please make sure you entered all input correctly.";
 
-        String message = "Unknown error";
+        if(output != null) {
 
-        try {
-            message = cs.getString(11);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            ResultSet rs = (ResultSet) output[0];
+            CallableStatement cs = (CallableStatement) output[1];
+
+            try {
+                message = cs.getString(11);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
 
         DBManager.close();
