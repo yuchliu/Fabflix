@@ -33,6 +33,10 @@ public class AddMovieControl extends HttpServlet{
 
         String genreName = request.getParameter("genreName");
 
+        if (starDob.equals("")) starDob = "0000-00-00";
+        if (starPhotoUrl.equals("")) starPhotoUrl = "http://static6.businessinsider.com/image/55918b77ecad04a3465a0a63/nbc-fires-donald-trump-after-he-calls-mexicans-rapists-and-drug-runners.jpg";
+
+
         String procedure = "{call add_movie(?,?,?,?,?,?,?,?,?,?,?)}";
         String[] spArgs = {movieTitle, movieYear, movieDirector, movieBannerUrl, movieTrailerUrl,
                            starFirstName, starLastName, starDob, starPhotoUrl, genreName};

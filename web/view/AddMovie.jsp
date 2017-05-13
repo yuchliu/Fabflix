@@ -32,7 +32,7 @@
                     <label>Year:</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-                        <input type="text" name="movieYear" class="form-control" placeholder="...year">
+                        <input type="text" name="movieYear" class="form-control" placeholder="...year(YYYY-MM-DD">
                     </div>
                 </div>
 
