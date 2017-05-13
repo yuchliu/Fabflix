@@ -63,7 +63,11 @@ public class DBManager {
 			return output;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
 		}
 
 		return null;
@@ -90,8 +94,6 @@ public class DBManager {
 
 			for (String tableName : tables)
 			{
-/*				System.out.println("Table: " + tableName);
-				System.out.println("----------------");*/
 
 				resultColumns = metadata.getColumns(null, "%", tableName, "%");
 
@@ -100,15 +102,7 @@ public class DBManager {
 					String colName = resultColumns.getString("COLUMN_NAME");
 					String colType = resultColumns.getString("TYPE_NAME");
 					metaData.tableMap.get(tableName).colMap.put(colName, new MetaData.Column(colName, colType));
-
-/*					StringBuffer buffer = new StringBuffer();
-					buffer.append(colName);
-					buffer.append(": ");
-					buffer.append(colType);
-					System.out.println(buffer.toString());*/
 				}
-
-//				System.out.println("");
 			}
 		}
 		catch (SQLException e)
