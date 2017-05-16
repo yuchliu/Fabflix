@@ -25,7 +25,7 @@ public class AddStarControl extends HttpServlet{
         if (firstName == null) firstName = "";
         if (lastName == null) lastName = "";
         //TODO: not sure why it is always not equal to null
-        if (dob.equals("")) dob = "0000-00-00";
+        if (dob.equals("")) dob = "1700-01-01";
         if (photo_URL.equals("")) photo_URL = "http://static6.businessinsider.com/image/55918b77ecad04a3465a0a63/nbc-fires-donald-trump-after-he-calls-mexicans-rapists-and-drug-runners.jpg";
 
         StarManager.insertStar(firstName, lastName, dob, photo_URL, request, response);

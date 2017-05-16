@@ -28,9 +28,9 @@ public class StarControl extends HttpServlet {
 			else
 				bFirstName.append(starName[i]);
 		}
-		String concatFirstName = bFirstName.toString();
+		String concatFirstName = bFirstName.toString().trim();
 		clauss.setFirstName(concatFirstName);
-		clauss.setLastName(starName[starName.length-1]);
+		clauss.setLastName(starName[starName.length-1].trim());
 		request.getSession().setAttribute("clauss", clauss);
 		
 		String sql = "SELECT id, dob, photo_url FROM stars "

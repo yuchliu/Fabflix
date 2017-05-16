@@ -10,9 +10,15 @@
     <h1 align="center" class="my-title">Add Movie</h1>
     <% if(request.getAttribute("message") != null) { %>
         <br />
-        <div class="alert alert-warning">
-            <%= request.getAttribute("message").toString() %>
-        </div>
+        <% if((Boolean)request.getAttribute("error")) { %>
+            <div class="alert alert-danger">
+                <%= request.getAttribute("message").toString() %>
+            </div>
+        <% } else { %>
+            <div class="alert alert-warning">
+                <%= request.getAttribute("message").toString() %>
+            </div>
+        <% } %>
     <% } %>
     <br />
     <form action="/AddMovieControl" method="post">
@@ -21,7 +27,7 @@
             <div class="col-md-6">
 
                 <div class="form-group">
-                    <label>Title:</label>
+                    <label>Title: (Required)</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         <input type="text" name="movieTitle" class="form-control" placeholder="...title">
@@ -29,15 +35,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Year:</label>
+                    <label>Year: (Required)</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-                        <input type="text" name="movieYear" class="form-control" placeholder="...year(YYYY-MM-DD">
+                        <input type="text" name="movieYear" class="form-control" placeholder="...year(YYYY)">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label>Director:</label>
+                    <label>Director: (Required)</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-male"></i></span>
                         <input type="text" name="movieDirector" class="form-control" placeholder="...director">
@@ -64,7 +70,7 @@
             <div class="col-md-6">
 
                 <div class="form-group">
-                    <label>Genre:</label>
+                    <label>Genre: (Required)</label>
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eye"></i></span>
                         <input type="text" name="genreName" class="form-control" placeholder="...genre">

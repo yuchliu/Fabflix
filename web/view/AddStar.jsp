@@ -18,11 +18,11 @@
         <% if(request.getAttribute("error") != null) { %>
             <% if((Boolean) request.getAttribute("error")) { %>
                 <div class="alert alert-danger">
-                    Not a valid star information.
+                    <%=request.getAttribute("message")%>
                 </div>
             <% } else { %>
                 <div class="alert alert-success">
-                    Success: A new star inserted
+                    <%=request.getAttribute("message")%>
                 </div>
             <% } %>
         <% } %>

@@ -20,7 +20,11 @@ public class DBManager {
 			pst = conn.prepareStatement(sql);		
 			rs = pst.executeQuery();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
 		}
 		return rs;
 	}
@@ -37,7 +41,20 @@ public class DBManager {
 			}
 			return pst.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+		} catch (Exception e)
+		{
+			System.err.println("Message: " + e.getMessage());
+			Throwable t = e.getCause();
+			while(t != null)
+			{
+				System.out.println("Cause: " + t);
+				t = t.getCause();
+			}
 		}
 		return -1;
 	}
@@ -49,7 +66,7 @@ public class DBManager {
 
 			CallableStatement cs = conn.prepareCall(procedure);
 
-			int i = 0;
+			int i;
 			for (i=0; i!=params.length; ++i){
 				cs.setString(i+1,params[i]);
 			}
@@ -151,7 +168,13 @@ public class DBManager {
 		}
 		catch (Exception e) 
 		{
-			e.printStackTrace();
+			System.err.println("Message: " + e.getMessage());
+			Throwable t = e.getCause();
+			while(t != null)
+			{
+				System.out.println("Cause: " + t);
+				t = t.getCause();
+			}
 		}
 
 		conn = null;

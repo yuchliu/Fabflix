@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class StarManager {
 	public static void insertStar(String firstName, String lastName, String birthday, String photo_url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String message;
 		firstName = firstName.trim();
 		lastName = lastName.trim();
 		birthday = birthday.trim();
@@ -15,7 +16,9 @@ public class StarManager {
 
 		if ("".equals(firstName) && "".equals(lastName)) {
 			request.setAttribute("error",true);
-			request.getRequestDispatcher("/view/Dashboard.jsp").forward(request,response);
+			message = "Please put at least one name for the star.";
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/view/AddStar.jsp").forward(request,response);
 			return;
 		}
 
@@ -28,10 +31,22 @@ public class StarManager {
 				"VALUES (?, ?, ?, ?)";
 
 		String param[] = {firstName.trim(), lastName.trim(), birthday.trim(), photo_url.trim()};
-		DBManager.executeUpdate(sql, param);
+		int  retVal = DBManager.executeUpdate(sql, param);
 		DBManager.close();
 
-		request.setAttribute("error",false);
-		request.getRequestDispatcher("/view/Dashboard.jsp").forward(request,response);
+		if (retVal == -1) { // dob failed
+			request.setAttribute("error",true);
+			message = "Please make sure you entered all input in correct format.";
+		}
+		else if (retVal == 0) {
+			request.setAttribute("error",false);
+			message = "Adding new star failed.";
+		}
+		else {
+			request.setAttribute("error",false);
+			message = "Success: A new star inserted.";
+		}
+		request.setAttribute("message",message);
+		request.getRequestDispatcher("/view/AddStar.jsp").forward(request,response);
 	}
 }
