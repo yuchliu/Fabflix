@@ -5,6 +5,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class StarManager {
 	public static void insertStar(String firstName, String lastName, String birthday, String photo_url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,6 +29,29 @@ public class StarManager {
 			lastName = firstName;
 			firstName = "";
 		}
+
+		String checkExsit = "SELECT COUNT(*) FROM stars WHERE last_name = \"" + lastName + "\"";
+		ResultSet rs = DBManager.executeQuery(checkExsit);
+
+		try {
+			rs.next();
+			if (rs.getInt(1) > 0)
+			{
+				System.out.println(rs.getInt(1));
+				request.setAttribute("error",true);
+				message = "Error: Star existed.";
+				request.setAttribute("message", message);
+				request.getRequestDispatcher("/view/AddStar.jsp").forward(request,response);
+				return;
+			}
+		} catch (SQLException e) {
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+		}
+
 
 		String sql = "INSERT INTO stars (first_name, last_name, dob, photo_url) " +
 				"VALUES (?, ?, ?, ?)";
