@@ -12,9 +12,11 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import domain.Movie;
 
 @WebServlet("/FullTextSearch")
 public class FullTextSearchControl extends HttpServlet {
@@ -53,5 +55,38 @@ public class FullTextSearchControl extends HttpServlet {
         out.println(jsonResponse);
         out.close();
 
+    }
+
+    private LinkedList<Movie> getMovieByFT(String query)
+    {
+        String[] words = query.split(" ");
+        LinkedList<Movie> results = new LinkedList<Movie>();
+        String sql = "SELECT * FROM movies WHERE ";
+
+        for (int i=0; i<words.length-1; ++i)
+            sql += "MATCH(title) AGAINST ('*"+words[i]+"*') AND";
+
+        sql += "MATCH(title) AGAINST ('"+words[words.length]+"*');";
+
+        try {
+            ResultSet rs = DBManager.executeQuery(sql);
+            while (rs.next())
+            {
+                Movie movie = new Movie();
+                movie.setId(rs.getInt("id"));
+                movie.setYear(rs.getInt("year")+"");
+                movie.setTitle(rs.getString("title"));
+                movie.setBannerUrl(rs.getString("banner_url"));
+                movie.setTrailerUrl(rs.getString("trailer_url"));
+                results.push(movie);
+            }
+
+        } catch (SQLException e){
+            System.out.println(e);
+        } finally {
+            DBManager.close();
+        }
+
+        return results;
     }
 }
