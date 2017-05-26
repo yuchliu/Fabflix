@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" href="/sources/external/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="/sources/external/fontawesome/css/font-awesome.css">
+<link rel="stylesheet" href="/sources/external/jquery-ui/jquery-ui.css">
 <link rel="stylesheet" href="/sources/css/site.css">
 <link rel="stylesheet" href="/sources/css/header.css">
 
@@ -56,7 +57,7 @@
             </li>
             <form class="navbar-form navbar-left" action="/SearchControl" method="post">
                 <div class="form-group">
-                    <input type="text" name="title" class="form-control" placeholder="...Titles">
+                    <input type="text" id="full-text-search" name="title" class="form-control" placeholder="...Movie Title">
                 </div>
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
@@ -70,3 +71,34 @@
     </div>
 </nav>
 
+<script src="/sources/external/jquery/jquery-3.2.1.js"></script>
+<script src="/sources/external/jquery-ui/jquery-ui.js"></script>
+
+<script>
+
+    $(function() {
+
+        $("#full-text-search").autocomplete({
+            source: function(request, response) {
+
+                $.ajax({
+                    method: "GET",
+                    url: "/FullTextSearch", // TODO
+                    data: { query: request.term, limit: "15", returnType: "JSON" },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        if(!data) data = [];
+                        response(data)
+                    },
+                    error: function() {
+                        response([]);
+                    }
+                });
+
+            }
+        });
+
+    });
+
+</script>
