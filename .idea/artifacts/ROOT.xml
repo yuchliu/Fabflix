@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="ROOT">
+  <artifact type="exploded-war" build-on-make="true" name="ROOT">
     <output-path>$PROJECT_DIR$/out/artifacts/ROOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -11,6 +11,7 @@
           <element id="file-copy" path="$PROJECT_DIR$/lib/recaptcha4j-0.0.7.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-connector-java-5.1.40-bin.jar" />
           <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/json-simple-1.1.1.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Fabflix/web/Web" />
