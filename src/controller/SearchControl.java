@@ -46,7 +46,7 @@ public class SearchControl extends HttpServlet {
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
-		int pageSize = request.getParameter("pageSize") == null ? 10 : Integer.parseInt(request.getParameter("pageSize"));
+		int pageSize = request.getParameter("pageSize") == null ? 16 : Integer.parseInt(request.getParameter("pageSize"));
 
 		MovieService movieService = new MovieService();
 		LinkedList<Movie> items = movieService.getMovieByPage(clauss, pageNum, pageSize);

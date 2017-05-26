@@ -56,6 +56,7 @@ public class MovieService {
 				movie.setTitle(rs.getString(3));
 				movie.setDirector(rs.getString(4));
 				movie.setBannerUrl(rs.getString(5));
+				movie.setTrailerUrl(rs.getString(6));
 				movieItem.add(movie);
 			}
 			for (Movie movie : movieItem)
