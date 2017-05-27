@@ -25,25 +25,14 @@ public class FullTextSearchControl extends HttpServlet {
 
         String query = request.getParameter("query");
         String limit = request.getParameter("limit");
-        String returnType = request.getParameter("returnType"); // TODO - Might need another response type for android
 
-        if(returnType == null || "".equals(returnType.trim())) returnType = "JSON";
-
-        // TODO NOTE: Temporary query, this is NOT full text search
-        String sql = "SELECT title FROM movies WHERE title LIKE \"%" + query + "%\" LIMIT " + limit + ";";
-        ResultSet rs = DBManager.executeQuery(sql);
-
+        LinkedList<Movie> allResults = getMovieByFT(query);
         ArrayList<String> results = new ArrayList<>();
 
-        // Gather the results into an array.
-        try {
-            while(rs.next()) {
-                results.add(rs.getString("title"));
+        if(limit != null && "".equalsIgnoreCase(limit) == false) {
+            for (int i = 0; i < Integer.parseInt(limit) && i < allResults.size(); i++) {
+                results.add(allResults.get(i).getTitle());
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DBManager.close();
         }
 
         // Format the results list as a json object (using Google's Gson) and return it to the caller.
@@ -64,9 +53,9 @@ public class FullTextSearchControl extends HttpServlet {
         String sql = "SELECT * FROM movies WHERE ";
 
         for (int i=0; i<words.length-1; ++i)
-            sql += "MATCH(title) AGAINST ('*"+words[i]+"*') AND";
+            sql += "MATCH(title) AGAINST ('*"+words[i]+"*') AND ";
 
-        sql += "MATCH(title) AGAINST ('"+words[words.length]+"*');";
+        sql += "MATCH(title) AGAINST ('"+words[words.length - 1]+"*');";
 
         try {
             ResultSet rs = DBManager.executeQuery(sql);

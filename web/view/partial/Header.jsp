@@ -84,7 +84,7 @@
                 $.ajax({
                     method: "GET",
                     url: "/FullTextSearch", // TODO
-                    data: { query: request.term, limit: "15", returnType: "JSON" },
+                    data: { query: request.term, limit: "15" },
                     dataType: "json",
                     success: function(data) {
                         console.log(data);
