@@ -28,7 +28,11 @@ public class FullTextSearchControl extends HttpServlet {
         if(returnType == null || "".equals(returnType.trim())) returnType = "JSON";
 
         // TODO NOTE: Temporary query, this is NOT full text search
-        String sql = "SELECT title FROM movies WHERE title LIKE \"%" + query + "%\" LIMIT " + limit + ";";
+        String sql;
+        if (limit == null)
+            sql = "SELECT title FROM movies WHERE title LIKE \"%" + query + "%\";";
+        else
+            sql = "SELECT title FROM movies WHERE title LIKE \"%" + query + "%\" LIMIT " + limit + ";";
         ResultSet rs = DBManager.executeQuery(sql);
 
         ArrayList<String> results = new ArrayList<>();
@@ -39,7 +43,11 @@ public class FullTextSearchControl extends HttpServlet {
                 results.add(rs.getString("title"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
         } finally {
             DBManager.close();
         }
@@ -53,5 +61,9 @@ public class FullTextSearchControl extends HttpServlet {
         out.println(jsonResponse);
         out.close();
 
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }
