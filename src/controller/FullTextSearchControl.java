@@ -64,7 +64,9 @@ public class FullTextSearchControl extends HttpServlet {
         sql += "MATCH(title) AGAINST ('"+query+"*' in BOOLEAN MODE) ";
 
         //order by relevance according to edit distance
-        sql += "OR ed('"+query+"',title) <= 3 ORDER BY ed('"+query+"',title) asc;";
+        if (query.length()>4)
+            sql += "OR ed('"+query+"',title) <= 3 ORDER BY ed('"+query+"',title) asc ";
+        sql += ";";
 
         try {
             ResultSet rs = DBManager.executeQuery(sql);
