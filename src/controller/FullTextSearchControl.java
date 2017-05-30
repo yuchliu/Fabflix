@@ -35,6 +35,11 @@ public class FullTextSearchControl extends HttpServlet {
             }
         }
 
+        if (limit == null){
+            for (Movie m : allResults)
+                results.add(m.getTitle());
+        }
+
         // Format the results list as a json object (using Google's Gson) and return it to the caller.
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(results, new TypeToken<ArrayList<String>>(){}.getType());
@@ -44,6 +49,11 @@ public class FullTextSearchControl extends HttpServlet {
         out.println(jsonResponse);
         out.close();
 
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 
     private LinkedList<Movie> getMovieByFT(String query)
@@ -70,7 +80,13 @@ public class FullTextSearchControl extends HttpServlet {
             }
 
         } catch (SQLException e){
-            System.out.println(e);
+            System.err.println("Message: " + e.getMessage());
+            Throwable t = e.getCause();
+            while(t != null)
+            {
+                System.out.println("Cause: " + t);
+                t = t.getCause();
+            }
         } finally {
             DBManager.close();
         }

@@ -2,14 +2,13 @@ create table movies (id int not null AUTO_INCREMENT primary key,
 					 title text not null,
                      FULLTEXT (title),
 					 year int not null,
-					 director text not null,
+					 director varchar(100) not null default '',
 					 banner_url varchar(200) default '',
-					 trailer_url varchar(200) default '')
-					 ENGINE=InnoDB;
+					 trailer_url varchar(200) default '');
 
 create table stars (id int not null AUTO_INCREMENT primary key,
-				   first_name text not null,
-				   last_name text not null,
+				   first_name varchar(50) not null default '',
+				   last_name varchar(50) not null default '',
 				   dob date default null,
 				   photo_url varchar(200) default '');
 
@@ -19,7 +18,7 @@ create table stars_in_movies (star_id int not null,
 							  foreign key (movie_id) references movies(id));
 
 create table genres (id int primary key not null AUTO_INCREMENT,
-					 name text not null);
+					 name varchar(32) not null default '');
 
 create table genres_in_movies(genre_id int not null,
 							  foreign key (genre_id) references genres(id),
