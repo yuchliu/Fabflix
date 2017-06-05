@@ -14,7 +14,7 @@ public class DBManager {
 	public static ResultSet executeQuery(String sql)
 	{
 		//sql format: select * from 
-		conn = getConnection();
+		conn = getConnection(false);
 		try {
 //			System.out.println("sql = "+sql);
 			pst = conn.prepareStatement(sql);		
@@ -32,7 +32,7 @@ public class DBManager {
 	public static int executeUpdate(String sql, String params[])
 	{
 		//sql format: select * from
-		conn = getConnection();
+		conn = getConnection(true);
 		try {
 			System.out.println("UpdateSql = "+sql);
 			pst = conn.prepareStatement(sql);
@@ -61,7 +61,7 @@ public class DBManager {
 
 	public static Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
 	{
-		conn = getConnection();
+		conn = getConnection(true);
 		try {
 
 			CallableStatement cs = conn.prepareCall(procedure);
@@ -91,7 +91,7 @@ public class DBManager {
 	}
 
 	public static MetaData getMetaData() {
-		conn = getConnection();
+		conn = getConnection(false);
 		ResultSet resultTables = null;
 		ResultSet resultColumns = null;
 		ArrayList<String> tables = new ArrayList<>();
@@ -148,12 +148,15 @@ public class DBManager {
 		return metaData;
 	}
 
-	private static boolean openConnection()
+	private static boolean openConnection(Boolean writeOP)
 	{
 		try 
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
+			if (writeOP)
+				conn = DriverManager.getConnection("jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
+			else
+				conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
 			return true;
 		}
 		catch (SQLException e)
@@ -181,11 +184,11 @@ public class DBManager {
 		return false;
 	}
 	
-	private static Connection getConnection()
+	private static Connection getConnection(Boolean writeOP)
 	{
 		if (conn == null) 
 		{
-			if (openConnection()) 
+			if (openConnection(writeOP))
 				return conn;
 			else 
 				return null;
