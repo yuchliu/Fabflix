@@ -60,14 +60,22 @@ public class FullTextSearchControl extends HttpServlet {
     {
         LinkedList<Movie> results = new LinkedList<Movie>();
         String sql = "SELECT * FROM movies WHERE ";
-
-        sql += "MATCH(title) AGAINST ('"+query+"*' in BOOLEAN MODE) ";
+        String[] tokens= query.trim().split(" ");
+        sql += "MATCH(title) AGAINST ('";
+        for (int i = 0; i < tokens.length; i++) {
+            if (i != tokens.length - 1)
+                sql += "+" + tokens[i] + " ";
+            else
+                sql += "+" + tokens[i];
+        }
+        sql += "*' in BOOLEAN MODE) ";
 
         //order by relevance according to edit distance
         if (query.length()>4)
             sql += "OR ed('"+query+"',title) <= 3 ORDER BY ed('"+query+"',title) asc ";
         sql += ";";
 
+        System.out.println(sql);
         try {
             ResultSet rs = DBManager.executeQuery(sql);
             while (rs.next())
