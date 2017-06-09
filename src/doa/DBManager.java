@@ -17,15 +17,37 @@ public class DBManager {
 	private static PreparedStatement pst = null;
 	private static Statement st = null;
 	private static ResultSet rs = null;
+	private static long queryTime = 0;
+
+	public static void restartTimer() {
+		queryTime = 0;
+	}
+
+	public static long readTimer() {
+		return queryTime;
+	}
 
 	public static ResultSet executeQuery(String sql, String type)
     {
+		long startTime = System.nanoTime();
+
+		ResultSet rs = null;
         switch(type) {
-			case "OnlyPooled": return executeQuery_pooled_noPrepared(sql); // (T3.3A4/T3.3B3)
-            case "OnlyPrepared": return executeQuery_noPool_Prepared(sql);	// (T3.3A5/T3.3B4)
-			// case "Raw": return executeQuery_RawSql(sql); // depreciated version
-            default: return executeQuery(sql);	// (T3.3A1~A3/T3.3B1,B1T3.3B2)
+			case "OnlyPooled":
+				rs = executeQuery_pooled_noPrepared(sql); // (T3.3A4/T3.3B3)
+				break;
+            case "OnlyPrepared":
+            	rs = executeQuery_noPool_Prepared(sql);	// (T3.3A5/T3.3B4)
+				break;
+            default:
+            	rs = executeQuery(sql);	// (T3.3A1~A3/T3.3B1,B1T3.3B2)
+				break;
         }
+
+		long endTime = System.nanoTime();
+		queryTime += endTime - startTime;
+
+		return rs;
     }
 
     //IMPORTANT: used for test query WITH connection pooling AND prepared statement (T3.3A1~A3/T3.3B1,B1T3.3B2)
