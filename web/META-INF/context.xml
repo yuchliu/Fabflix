@@ -1,8 +1,17 @@
 <Context path="/">
 
-    <Resource name="jdbc/MovieDB" auth="Container" type="javax.sql.DataSource"
+    <Resource name="jdbc/MovieDB_Read" auth="Container" type="javax.sql.DataSource"
               maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
+
+    <Resource name="jdbc/MovieDB_Write" auth="Container" type="javax.sql.DataSource"
+              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
+
+    <!-- Set url to url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" for local testing and
+         url="jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&amp;useSSL=false" when you want to use the
+         master connection -->
 
 </Context>

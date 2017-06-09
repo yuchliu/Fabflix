@@ -46,16 +46,16 @@ public class DBManager {
 			if (envCtx == null)
 				System.err.println("executeQueryPooled: envCtx is null.");
 
-			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB_Read");
 
 			if (ds == null)
 				System.err.println("executeQueryPooled: ds is null.");
 
-			Connection dbcon = ds.getConnection();
-			if (dbcon == null)
+			Connection conn = ds.getConnection();
+			if (conn == null)
 				System.err.println("executeQueryPooled: dbcon is null.");
 
-			Statement statement = dbcon.createStatement();
+			Statement statement = conn.createStatement();
 			return statement.executeQuery(sql);
 
 		} catch (SQLException e) {
@@ -71,37 +71,49 @@ public class DBManager {
 		}
 
 		return null;
-
 	}
 
 	public static int executeUpdate(String sql, String params[])
 	{
-		//sql format: select * from
-		conn = getConnection(true);
-		try {
-			System.out.println("UpdateSql = "+sql);
-			pst = conn.prepareStatement(sql);
-			for (int i=0; i!=params.length; ++i){
-				pst.setString(i+1,params[i]);
-			}
-			return pst.executeUpdate();
-		} catch (SQLException e) {
-			System.err.println("Error");
-			while(e != null) {
-				System.out.println("Error: " + e.getMessage());
-				e = e.getNextException();
-			}
-		} catch (Exception e)
-		{
-			System.err.println("Message: " + e.getMessage());
-			Throwable t = e.getCause();
-			while(t != null)
-			{
-				System.out.println("Cause: " + t);
-				t = t.getCause();
-			}
-		}
-		return -1;
+        try {
+
+            Context initCtx = new InitialContext();
+            if (initCtx == null)
+                System.err.println("executeQueryPooled: initCtx is null.");
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.err.println("executeQueryPooled: envCtx is null.");
+
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB_Write");
+
+            if (ds == null)
+                System.err.println("executeQueryPooled: ds is null.");
+
+            conn = ds.getConnection();
+            if (conn == null)
+                System.err.println("executeQueryPooled: dbcon is null.");
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+            for (int i=0; i!=params.length; ++i){
+                statement.setString(i+1,params[i]);
+            }
+
+            return statement.executeUpdate();
+
+        } catch (SQLException e) {
+
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error");
+        }
+
+        return -1;
 	}
 
 	public static Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
