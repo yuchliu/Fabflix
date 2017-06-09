@@ -13,21 +13,27 @@ import java.util.Random;
 public class DBManager {
 	//TODO: toggle this variable between single or scaled version
 	private static final boolean SCALED = false;
-	private static Connection conn = null;
-	private static PreparedStatement pst = null;
-	private static Statement st = null;
-	private static ResultSet rs = null;
+	private Connection conn = null;
+	private PreparedStatement pst = null;
+	private Statement st = null;
+	private ResultSet rs = null;
+
+	private static Object queryMutex = new Object();
 	private static long queryTime = 0;
 
 	public static void restartTimer() {
-		queryTime = 0;
+		synchronized (queryMutex) {
+			queryTime = 0;
+		}
 	}
 
 	public static long readTimer() {
-		return queryTime;
+		synchronized (queryMutex) {
+			return queryTime;
+		}
 	}
 
-	public static ResultSet executeQuery(String sql, String type)
+	public ResultSet executeQuery(String sql, String type)
     {
 		long startTime = System.nanoTime();
 
@@ -45,13 +51,16 @@ public class DBManager {
         }
 
 		long endTime = System.nanoTime();
-		queryTime += endTime - startTime;
+
+        synchronized (queryMutex) {
+			queryTime += endTime - startTime;
+		}
 
 		return rs;
     }
 
     //IMPORTANT: used for test query WITH connection pooling AND prepared statement (T3.3A1~A3/T3.3B1,B1T3.3B2)
-	public static ResultSet executeQuery(String sql)
+	public ResultSet executeQuery(String sql)
 	{
 		try {
 
@@ -91,7 +100,7 @@ public class DBManager {
 	}
 
 	//IMPORTANT: used for test query WITH connection pooling BUT WITHOUT prepared statement (T3.3A4/T3.3B3)
-	private static ResultSet executeQuery_pooled_noPrepared(String sql)
+	private ResultSet executeQuery_pooled_noPrepared(String sql)
 	{
 		try {
 
@@ -131,7 +140,7 @@ public class DBManager {
 	}
 
 	//IMPORTANT: used for test query WITHOUT connection pooling BUT with prepared statement(T3.3A5/ T3.3B4)
-    private static ResultSet executeQuery_noPool_Prepared(String sql)
+    private ResultSet executeQuery_noPool_Prepared(String sql)
     {
         conn = getConnection(false);
         try {
@@ -148,7 +157,7 @@ public class DBManager {
     }
 
 	//IMPORTANT: used for test query WITHOUT EITHER connection pooling OR prepared statement (depreciated version)
-    public static ResultSet executeQuery_RawSql(String sql)
+    public ResultSet executeQuery_RawSql(String sql)
     {
         conn = getConnection(false);
         try {
@@ -164,7 +173,7 @@ public class DBManager {
         return rs;
     }
 
-	public static int executeUpdate(String sql, String params[])
+	public int executeUpdate(String sql, String params[])
 	{
         try {
 
@@ -211,7 +220,7 @@ public class DBManager {
         return -1;
 	}
 
-	public static Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
+	public Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
 	{
 		try {
 
@@ -261,7 +270,7 @@ public class DBManager {
 		return null;
 	}
 
-	public static MetaData getMetaData() {
+	public MetaData getMetaData() {
 		conn = getConnection(false);
 		ResultSet resultTables = null;
 		ResultSet resultColumns = null;
@@ -319,7 +328,7 @@ public class DBManager {
 		return metaData;
 	}
 
-	private static DataSource getReadDs (Context envCtx){
+	private DataSource getReadDs (Context envCtx){
 		DataSource ds = null;
 		try{
 			if (SCALED) {
@@ -338,7 +347,7 @@ public class DBManager {
 		return ds;
 	}
 
-	private static boolean openConnection(Boolean writeOP)
+	private boolean openConnection(Boolean writeOP)
 	{
 		try 
 		{
@@ -368,7 +377,7 @@ public class DBManager {
 		return false;
 	}
 	
-	private static Connection getConnection(Boolean writeOP)
+	private Connection getConnection(Boolean writeOP)
 	{
 		if (conn == null) 
 		{
@@ -380,7 +389,7 @@ public class DBManager {
 		return conn;
 	}
 
-	public static void close()
+	public void close()
 	{
 		try 
 		{

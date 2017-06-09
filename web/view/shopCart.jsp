@@ -12,7 +12,8 @@
 
     User user = (User) request.getSession().getAttribute("User");
     String sql = "SELECT * FROM carts INNER JOIN movies ON movie_id = movies.id WHERE customer_id = " + user.getId() + ";";
-    ResultSet rs = DBManager.executeQuery(sql);
+    DBManager db = new DBManager();
+    ResultSet rs = db.executeQuery(sql);
 
     ArrayList<ArrayList<String>> movies = new ArrayList<>();
     while (rs.next()) {
@@ -24,7 +25,7 @@
         movies.add(movie);
     }
 
-    DBManager.close();
+    db.close();
 
 %>
 

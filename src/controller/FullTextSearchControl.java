@@ -75,9 +75,10 @@ public class FullTextSearchControl extends HttpServlet {
             sql += "OR ed('"+query+"',title) <= 3 ORDER BY ed('"+query+"',title) asc ";
         sql += ";";
 
+        DBManager db = new DBManager();
         System.out.println(sql);
         try {
-            ResultSet rs = DBManager.executeQuery(sql);
+            ResultSet rs = db.executeQuery(sql);
             while (rs.next())
             {
                 Movie movie = new Movie();
@@ -98,7 +99,7 @@ public class FullTextSearchControl extends HttpServlet {
                 t = t.getCause();
             }
         } finally {
-            DBManager.close();
+            db.close();
         }
 
         return results;

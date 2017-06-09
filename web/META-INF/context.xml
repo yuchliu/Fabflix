@@ -1,27 +1,27 @@
 <Context path="/">
 
     <Resource name="jdbc/MovieDB_Read_Master" auth="Container" type="javax.sql.DataSource"
-              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
 
     <Resource name="jdbc/MovieDB_Read_Slave" auth="Container" type="javax.sql.DataSource"
-              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
 
     <Resource name="jdbc/MovieDB_Read_Local" auth="Container" type="javax.sql.DataSource"
-              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
 
     <Resource name="jdbc/MovieDB_Write_Master" auth="Container" type="javax.sql.DataSource"
-              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
 
     <Resource name="jdbc/MovieDB_Write_Local" auth="Container" type="javax.sql.DataSource"
-              maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
+              maxTotal="1000" maxIdle="30" maxWaitMillis="10000" username="tomcat122b"
               password="rRQZtDDOYU3w" driverClassName="com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/moviedb?autoReconnect=true&amp;useSSL=false" />
 

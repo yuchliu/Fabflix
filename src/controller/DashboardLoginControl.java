@@ -50,7 +50,8 @@ public class DashboardLoginControl extends HttpServlet {
             String sql = "SELECT fullname, email, password "+
                     "FROM employees WHERE email = \""+ email +"\"";
 
-            ResultSet rs = DBManager.executeQuery(sql);
+            DBManager db = new DBManager();
+            ResultSet rs = db.executeQuery(sql);
 
             try {
                 if ( rs.next() && pwd.equals(rs.getString("password")))
@@ -71,7 +72,7 @@ public class DashboardLoginControl extends HttpServlet {
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {
-                DBManager.close();
+                db.close();
             }
         }
     }

@@ -31,7 +31,8 @@ public class CheckoutControl extends HttpServlet {
 
 		String sql = "SELECT first_name, last_name, expiration "
 				   + "FROM creditcards WHERE id = \""+cc_id+"\"";
-		ResultSet rs = DBManager.executeQuery(sql);
+		DBManager db = new DBManager();
+		ResultSet rs = db.executeQuery(sql);
 		try {
 			if (rs.next()){
 				if ( (rs.getString(1)+rs.getString(2)+rs.getString(3)).equals(firstName+lastName+expiration) ) valid = true;
@@ -39,7 +40,7 @@ public class CheckoutControl extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close();
+			db.close();
 		}
 
 		if (!valid){
@@ -60,7 +61,7 @@ public class CheckoutControl extends HttpServlet {
 				User user = (User) request.getSession().getAttribute("User");
 				String sqlGetItems = "SELECT * FROM carts INNER JOIN movies ON movie_id = movies.id WHERE customer_id = " + user.getId() + ";";
 				String sqlClearItems = "DELETE FROM carts WHERE customer_id = " + user.getId() + ";";
-				ResultSet cartItems = DBManager.executeQuery(sqlGetItems);
+				ResultSet cartItems = db.executeQuery(sqlGetItems);
 
 				String sqlUpdate = "INSERT INTO sales (customer_id, movie_id, sale_date) VALUES ";
 				ArrayList<String> params = new ArrayList<>();
@@ -93,11 +94,11 @@ public class CheckoutControl extends HttpServlet {
 
 				}
 
-				DBManager.close();
-				DBManager.executeUpdate(sqlUpdate, params.toArray(new String[params.size()]));
-				DBManager.close();
-				DBManager.executeUpdate(sqlClearItems, new String[]{});
-				DBManager.close();
+				db.close();
+				db.executeUpdate(sqlUpdate, params.toArray(new String[params.size()]));
+				db.close();
+				db.executeUpdate(sqlClearItems, new String[]{});
+				db.close();
 
 			} catch (SQLException e) {
 				e.printStackTrace();

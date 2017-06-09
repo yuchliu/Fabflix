@@ -19,7 +19,11 @@
         <jsp:include page="/view/partial/DashboardHeader.jsp" />
         <div class="container">
             <h1 align="center" class="my-title">MetaData</h1>
-            <% MetaData metaData = DBManager.getMetaData();%>
+            <%
+                DBManager db = new DBManager();
+                MetaData metaData = db.getMetaData();
+                db.close();
+            %>
             <div class="panel panel-primary">
                 <div class="panel-heading">MetaData for moviedb database</div>
                 <table class="table">

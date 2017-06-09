@@ -48,7 +48,8 @@ public class LoginControl extends HttpServlet {
 			String sql = "SELECT first_name, last_name, id, password " +
 					"FROM customers WHERE email = \"" + email + "\"";
 
-			ResultSet rs = DBManager.executeQuery(sql);
+			DBManager db = new DBManager();
+			ResultSet rs = db.executeQuery(sql);
 
 			try {
 				if (rs.next() && pwd.equals(rs.getString("password"))) {
@@ -68,7 +69,7 @@ public class LoginControl extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
-				DBManager.close();
+				db.close();
 			}
 		}
 	}

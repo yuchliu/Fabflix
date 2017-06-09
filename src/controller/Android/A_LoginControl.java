@@ -30,7 +30,8 @@ public class A_LoginControl extends HttpServlet {
         String sql = "SELECT first_name, last_name, id, password " +
                 "FROM customers WHERE email = \"" + username + "\"";
 
-        ResultSet rs = DBManager.executeQuery(sql);
+        DBManager db = new DBManager();
+        ResultSet rs = db.executeQuery(sql);
         JSONObject jsonObj = new JSONObject();
         try {
             if (!rs.next()) {
@@ -53,7 +54,7 @@ public class A_LoginControl extends HttpServlet {
             }
         } finally {
             out.print(jsonObj.toString());
-            DBManager.close();
+            db.close();
         }
     }
 

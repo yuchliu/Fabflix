@@ -31,7 +31,8 @@ public class StarManager {
 		}
 
 		String checkExsit = "SELECT COUNT(*) FROM stars WHERE last_name = \"" + lastName + "\"";
-		ResultSet rs = DBManager.executeQuery(checkExsit);
+		DBManager db = new DBManager();
+		ResultSet rs = db.executeQuery(checkExsit);
 
 		try {
 			rs.next();
@@ -51,14 +52,14 @@ public class StarManager {
 				e = e.getNextException();
 			}
 		}
-		DBManager.close();
+		db.close();
 
 		String sql = "INSERT INTO stars (first_name, last_name, dob, photo_url) " +
 				"VALUES (?, ?, ?, ?)";
 
 		String param[] = {firstName.trim(), lastName.trim(), birthday.trim(), photo_url.trim()};
-		int  retVal = DBManager.executeUpdate(sql, param);
-		DBManager.close();
+		int  retVal = db.executeUpdate(sql, param);
+		db.close();
 
 		if (retVal == -1) { // dob failed
 			request.setAttribute("error",true);

@@ -23,7 +23,8 @@
     }
 
     String sql = "SELECT * FROM sales INNER JOIN movies ON movie_id = movies.id;";
-    ResultSet rs = DBManager.executeQuery(sql);
+    DBManager db = new DBManager();
+    ResultSet rs = db.executeQuery(sql);
 
     final class ByValue implements Comparator<Map.Entry<String, Integer>> {
         @Override
@@ -38,7 +39,7 @@
         String movieTitle = rs.getString("title");
         saleMovies.put(movieTitle, saleMovies.getOrDefault(movieTitle, 0) + 1);
     }
-    DBManager.close();
+    db.close();
     ArrayList<Map.Entry<String, Integer>> sortList = new ArrayList<>(saleMovies.entrySet());
     sortList.sort(new ByValue());
     ArrayList<Movie> popMovies = new ArrayList<>();
@@ -48,7 +49,7 @@
         String movieTitle = e.getKey();
         System.out.println("movie title = " + movieTitle);
         sql = "SELECT id, banner_url FROM movies WHERE title = \"" + movieTitle + "\";";
-        rs = DBManager.executeQuery(sql);
+        rs = db.executeQuery(sql);
         while (rs.next()) {
             Movie movie = new Movie();
             movie.setTitle(movieTitle);
@@ -60,7 +61,7 @@
             break;
 
     }
-    DBManager.close();
+    db.close();
 %>
 
 <html>
