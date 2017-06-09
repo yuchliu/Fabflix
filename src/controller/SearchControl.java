@@ -31,6 +31,7 @@ public class SearchControl extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String genre = request.getParameter("genre");
 		String startBy = request.getParameter("startby");
+		String connectionType = request.getParameter("connectionType");
 
 		// Set parameters
 		clauss = new Clauss();
@@ -43,13 +44,14 @@ public class SearchControl extends HttpServlet {
 		if(lastName != null) clauss.setLastName(lastName.trim());
 		if(genre != null && !"all".equals(genre))clauss.setGenre(genre);
 		if(startBy != null) clauss.setStartBy(startBy.trim());
+		if(connectionType == null) connectionType = "";
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
 		int pageSize = request.getParameter("pageSize") == null ? 16 : Integer.parseInt(request.getParameter("pageSize"));
 
 		MovieService movieService = new MovieService();
-		LinkedList<Movie> items = movieService.getMovieByPage(clauss, pageNum, pageSize);
+		LinkedList<Movie> items = movieService.getMovieByPage(clauss, pageNum, pageSize, connectionType);
 
 		request.setAttribute("pageTotal", items.getFirst().getId());
 		request.setAttribute("pageNum", pageNum);

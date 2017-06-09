@@ -21,13 +21,13 @@ public class MovieService {
 			+ "JOIN genres ON genres.id = genres_in_movies.genre_id ";
 	
 	@SuppressWarnings("finally")
-	public LinkedList<Movie> getMovieByPage(Clauss clauss, int page, int pageSize){
+	public LinkedList<Movie> getMovieByPage(Clauss clauss, int page, int pageSize, String connectionType){
 		
 		String condition = this.generateCondition(clauss);
 		String rowCount = "SELECT count(movies.id)"+
 				 		  " FROM "+(byStar?starTable : (byGenre?genreTable:"movies") )+" " +
 				 		  condition +";";
-		ResultSet rs = DBManager.executeQuery(rowCount);
+		ResultSet rs = DBManager.executeQuery(rowCount, connectionType);
 		int pageNum = 1;
 		try {
 			if (rs.next()) pageNum = (rs.getInt(1)-1)/pageSize + 1;
@@ -46,7 +46,7 @@ public class MovieService {
 							+" FROM "+(byStar?starTable : (byGenre?genreTable:"movies") )+" " 
 							+ condition+" ORDER BY "+clauss.getOrder()
 							+" LIMIT "+pageSize+" OFFSET "+(page-1)*pageSize+";";
-		rs = DBManager.executeQuery(movieSelect);
+		rs = DBManager.executeQuery(movieSelect, connectionType);
 		try {
 			while (rs.next())
 			{
@@ -65,7 +65,7 @@ public class MovieService {
 									"FROM stars_in_movies JOIN stars ON stars_in_movies.star_id = stars.id "+
 									"WHERE stars_in_movies.movie_id = "+movie.getId()+";";
 				
-				rs = DBManager.executeQuery(starSelect);
+				rs = DBManager.executeQuery(starSelect, connectionType);
 				while (rs.next())
 					movie.getStars().add(rs.getString(1)+" "+rs.getString(2));
 				
@@ -73,7 +73,7 @@ public class MovieService {
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
 
-				rs = DBManager.executeQuery(genreSelect);
+				rs = DBManager.executeQuery(genreSelect, connectionType);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));
 			}

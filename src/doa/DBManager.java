@@ -14,25 +14,14 @@ public class DBManager {
 	private static PreparedStatement pst = null;
 	private static ResultSet rs = null;
 
-	/*
-	public static ResultSet executeQuery(String sql)
-	{
-		//sql format: select * from 
-		conn = getConnection(false);
-		try {
-//			System.out.println("sql = "+sql);
-			pst = conn.prepareStatement(sql);		
-			rs = pst.executeQuery();
-		} catch (SQLException e) {
-			System.err.println("Error");
-			while(e != null) {
-				System.out.println("Error: " + e.getMessage());
-				e = e.getNextException();
-			}
-		}
-		return rs;
-	}
-	*/
+	public static ResultSet executeQuery(String sql, String type)
+    {
+        switch(type) {
+            case "Raw": return executeQuery_RawSql(sql);
+            case "PreparedStatement": return executeQuery_PreparedStatement(sql);
+            default: return executeQuery(sql);
+        }
+    }
 
 	public static ResultSet executeQuery(String sql)
 	{
@@ -55,8 +44,8 @@ public class DBManager {
 			if (conn == null)
 				System.err.println("executeQueryPooled: dbcon is null.");
 
-			Statement statement = conn.createStatement();
-			return statement.executeQuery(sql);
+            pst = conn.prepareStatement(sql);
+			return pst.executeQuery();
 
 		} catch (SQLException e) {
 
@@ -72,6 +61,38 @@ public class DBManager {
 
 		return null;
 	}
+
+    public static ResultSet executeQuery_PreparedStatement(String sql)
+    {
+        conn = getConnection(false);
+        try {
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }
+        return rs;
+    }
+
+    public static ResultSet executeQuery_RawSql(String sql)
+    {
+        conn = getConnection(false);
+        try {
+            Statement st = conn.createStatement();
+            rs = st.executeQuery(sql);
+        } catch (SQLException e) {
+            System.err.println("Error");
+            while(e != null) {
+                System.out.println("Error: " + e.getMessage());
+                e = e.getNextException();
+            }
+        }
+        return rs;
+    }
 
 	public static int executeUpdate(String sql, String params[])
 	{
@@ -121,6 +142,20 @@ public class DBManager {
 		conn = getConnection(true);
 		try {
 
+            Context initCtx = new InitialContext();
+            if (initCtx == null)
+                System.err.println("executeQueryPooled: initCtx is null.");
+
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            if (envCtx == null)
+                System.err.println("executeQueryPooled: envCtx is null.");
+
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB_Write");
+
+            if (ds == null)
+                System.err.println("executeQueryPooled: ds is null.");
+
+            conn = ds.getConnection();
 			CallableStatement cs = conn.prepareCall(procedure);
 
 			int i;
@@ -142,7 +177,9 @@ public class DBManager {
 				System.out.println("Error: " + e.getMessage());
 				e = e.getNextException();
 			}
-		}
+		} catch (Exception e) {
+            System.err.println("Error");
+        }
 
 		return null;
 	}
