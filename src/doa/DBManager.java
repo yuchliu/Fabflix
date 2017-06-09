@@ -2,6 +2,9 @@ package doa;
 
 import domain.MetaData;
 
+import javax.naming.InitialContext;
+import javax.naming.Context;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,6 +14,7 @@ public class DBManager {
 	private static PreparedStatement pst = null;
 	private static ResultSet rs = null;
 
+	/*
 	public static ResultSet executeQuery(String sql)
 	{
 		//sql format: select * from 
@@ -27,6 +31,47 @@ public class DBManager {
 			}
 		}
 		return rs;
+	}
+	*/
+
+	public static ResultSet executeQuery(String sql)
+	{
+		try {
+
+			Context initCtx = new InitialContext();
+			if (initCtx == null)
+				System.err.println("executeQueryPooled: initCtx is null.");
+
+			Context envCtx = (Context) initCtx.lookup("java:comp/env");
+			if (envCtx == null)
+				System.err.println("executeQueryPooled: envCtx is null.");
+
+			DataSource ds = (DataSource) envCtx.lookup("jdbc/MovieDB");
+
+			if (ds == null)
+				System.err.println("executeQueryPooled: ds is null.");
+
+			Connection dbcon = ds.getConnection();
+			if (dbcon == null)
+				System.err.println("executeQueryPooled: dbcon is null.");
+
+			Statement statement = dbcon.createStatement();
+			return statement.executeQuery(sql);
+
+		} catch (SQLException e) {
+
+			System.err.println("Error");
+			while(e != null) {
+				System.out.println("Error: " + e.getMessage());
+				e = e.getNextException();
+			}
+
+		} catch (Exception e) {
+			System.err.println("Error");
+		}
+
+		return null;
+
 	}
 
 	public static int executeUpdate(String sql, String params[])
@@ -154,6 +199,7 @@ public class DBManager {
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			if (writeOP)
+				// conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
 				conn = DriverManager.getConnection("jdbc:mysql://172.31.26.150:3306/moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
 			else
 				conn = DriverManager.getConnection("jdbc:mysql:///moviedb?autoReconnect=true&useSSL=false", "tomcat122b", "rRQZtDDOYU3w");
