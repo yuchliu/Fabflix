@@ -18,24 +18,23 @@ public class StarControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String starname = request.getParameter("star");
+		String starname = request.getParameter("star").trim();
 		Clauss clauss = new Clauss();
-		String []starName = starname.split(" ");
-		StringBuffer bFirstName = new StringBuffer();
-		for (int i = 0; i < starName.length - 1; ++i) {
-			if (i != starName.length - 2)
-				bFirstName.append(starName[i] + " ");
-			else
-				bFirstName.append(starName[i]);
+		String[] name = {"",""};
+		int split = starname.lastIndexOf(" ");
+		if (split==-1)
+			name[0] = starname;
+		else {
+			name[0] = starname.substring(0, split);
+			name[1] = starname.substring(split + 1);
 		}
-		String concatFirstName = bFirstName.toString().trim();
-		clauss.setFirstName(concatFirstName);
-		clauss.setLastName(starName[starName.length-1].trim());
+		clauss.setFirstName(name[0]);
+		clauss.setLastName(name[1]);
 		request.getSession().setAttribute("clauss", clauss);
 		
 		String sql = "SELECT id, dob, photo_url FROM stars "
-					+"WHERE first_name like \""+ concatFirstName +"%\" AND "
-					+"last_name like \"%"+starName[starName.length-1]+"\";";
+					+"WHERE first_name like \""+ name[0] +"%\" AND "
+					+"last_name like \"%"+name[1]+"\";";
 		
 		System.out.println(sql);
 		ResultSet rs = DBManager.executeQuery(sql);
@@ -45,8 +44,8 @@ public class StarControl extends HttpServlet {
 				star.setId(rs.getInt(1));
 				star.setDob(rs.getString(2));
 				star.setPhotoUrl(rs.getString(3));
-				star.setFistName(concatFirstName);
-				star.setLastName(starName[starName.length-1]);
+				star.setFistName(name[0]);
+				star.setLastName(name[1]);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

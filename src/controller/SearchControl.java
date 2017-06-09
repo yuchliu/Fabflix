@@ -45,6 +45,8 @@ public class SearchControl extends HttpServlet {
 		if(genre != null && !"all".equals(genre))clauss.setGenre(genre);
 		if(startBy != null) clauss.setStartBy(startBy.trim());
 		if(connectionType == null) connectionType = "";
+		if (request.getParameter("forStar") != null && "true".equals(request.getParameter("forStar")))
+			clauss = (Clauss) request.getSession().getAttribute("clauss");
 
 		// Pagination parameters
 		int pageNum = request.getParameter("pageNum") == null ? 1 : Integer.parseInt(request.getParameter("pageNum"));
