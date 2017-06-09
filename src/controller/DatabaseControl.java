@@ -52,6 +52,8 @@ public class DatabaseControl extends HttpServlet {
 
         } catch (SQLException e) {
             throw new ServletException(e.getMessage());
+        } finally {
+            DBManager.close();
         }
 
     }

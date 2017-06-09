@@ -51,7 +51,7 @@ public class StarManager {
 				e = e.getNextException();
 			}
 		}
-
+		DBManager.close();
 
 		String sql = "INSERT INTO stars (first_name, last_name, dob, photo_url) " +
 				"VALUES (?, ?, ?, ?)";

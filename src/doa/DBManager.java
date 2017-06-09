@@ -46,7 +46,7 @@ public class DBManager {
 			if (ds == null)
 				System.err.println("executeQueryPooled: ds is null.");
 
-			Connection conn = ds.getConnection();
+			conn = ds.getConnection();
 			if (conn == null)
 				System.err.println("executeQueryPooled: dbcon is null.");
 
@@ -86,7 +86,7 @@ public class DBManager {
 			if (ds == null)
 				System.err.println("executeQueryPooled: ds is null.");
 
-			Connection conn = ds.getConnection();
+			conn = ds.getConnection();
 			if (conn == null)
 				System.err.println("executeQueryPooled: dbcon is null.");
 
@@ -191,7 +191,6 @@ public class DBManager {
 
 	public static Object[] executeStoredProcedure(String procedure, String params[], Integer[] outParams)
 	{
-		conn = getConnection(true);
 		try {
 
             Context initCtx = new InitialContext();

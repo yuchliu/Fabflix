@@ -38,6 +38,8 @@ public class CheckoutControl extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close();
 		}
 
 		if (!valid){

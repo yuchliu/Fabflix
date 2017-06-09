@@ -46,8 +46,9 @@ public class MovieService {
 							+" FROM "+(byStar?starTable : (byGenre?genreTable:"movies") )+" " 
 							+ condition+" ORDER BY "+clauss.getOrder()
 							+" LIMIT "+pageSize+" OFFSET "+(page-1)*pageSize+";";
-		rs = DBManager.executeQuery(movieSelect, connectionType);
 		try {
+
+			rs = DBManager.executeQuery(movieSelect, connectionType);
 			while (rs.next())
 			{
 				Movie movie = new Movie();
@@ -59,6 +60,8 @@ public class MovieService {
 				movie.setTrailerUrl(rs.getString(6));
 				movieItem.add(movie);
 			}
+			DBManager.close();
+
 			for (Movie movie : movieItem)
 			{
 				String starSelect = "SELECT distinct stars.first_name, stars.last_name "+
@@ -68,7 +71,8 @@ public class MovieService {
 				rs = DBManager.executeQuery(starSelect, connectionType);
 				while (rs.next())
 					movie.getStars().add(rs.getString(1)+" "+rs.getString(2));
-				
+				DBManager.close();
+
 				String genreSelect = "SELECT distinct genres.name "+
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
@@ -76,6 +80,7 @@ public class MovieService {
 				rs = DBManager.executeQuery(genreSelect, connectionType);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));
+				DBManager.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,9 +96,10 @@ public class MovieService {
 				+" FROM movies " 
 				+"WHERE movies.id="+ID+";";
 		
-		ResultSet rs = DBManager.executeQuery(movieSelect);
+
 		Movie movie = new Movie();
 		try {
+			ResultSet rs = DBManager.executeQuery(movieSelect);
 			if (rs.next()){
 				movie.setId(rs.getInt(1));
 				movie.setYear(rs.getInt(2)+"");
@@ -101,14 +107,16 @@ public class MovieService {
 				movie.setDirector(rs.getString(4));
 				movie.setBannerUrl(rs.getString(5));
 				movie.setTrailerUrl(rs.getString(6));
-				
+				DBManager.close();
+
 				String starSelect = "SELECT distinct stars.first_name, stars.last_name "+
 						"FROM stars_in_movies JOIN stars ON stars_in_movies.star_id = stars.id "+
 						"WHERE stars_in_movies.movie_id = "+movie.getId()+";";
 				rs = DBManager.executeQuery(starSelect);
 				while (rs.next())
 					movie.getStars().add(rs.getString(1)+" "+rs.getString(2));
-				
+				DBManager.close();
+
 				String genreSelect = "SELECT distinct genres.name "+
 									 "FROM genres_in_movies JOIN genres ON genres_in_movies.genre_id = genres.id "+
 									 "WHERE genres_in_movies.movie_id = "+movie.getId()+";";
@@ -116,7 +124,7 @@ public class MovieService {
 				rs = DBManager.executeQuery(genreSelect);
 				while (rs.next())
 					movie.getGenre().add(rs.getString(1));
-				
+				DBManager.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
