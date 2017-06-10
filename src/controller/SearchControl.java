@@ -1,6 +1,9 @@
 package controller;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import doa.DBManager;
 import domain.Movie;
 import service.MovieService;
 
@@ -17,6 +21,9 @@ public class SearchControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		DBManager.restartTimer();
+		long startTime = System.nanoTime();
 
 		// Build Clauss object
 		Clauss clauss = null;
@@ -63,6 +70,21 @@ public class SearchControl extends HttpServlet {
 		items.removeFirst();
 		request.setAttribute("result", items);
 		request.setAttribute("clauss", clauss);
+
+		long endTime = System.nanoTime();
+
+		long tj = DBManager.readTimer();
+		long ts = endTime - startTime;
+		String logEntry = String.format("%d - %d", ts, tj);
+
+		try(FileWriter fw = new FileWriter(MyConstants.LOG_FILE_LOC, true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter out = new PrintWriter(bw))
+		{
+			out.println(logEntry);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if (request.getParameter("forStar") != null && "true".equals(request.getParameter("forStar"))) {
 			request.setAttribute("star", request.getAttribute("star"));

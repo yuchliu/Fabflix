@@ -37,7 +37,8 @@ public class StarControl extends HttpServlet {
 					+"last_name like \"%"+name[1]+"\";";
 		
 		System.out.println(sql);
-		ResultSet rs = DBManager.executeQuery(sql);
+		DBManager db = new DBManager();
+		ResultSet rs = db.executeQuery(sql);
 		Star star = new Star();
 		try {
 			if (rs.next()){
@@ -50,7 +51,7 @@ public class StarControl extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
-			DBManager.close();
+			db.close();
 		}
 		request.setAttribute("star", star);
 		request.getRequestDispatcher("/SearchControl?forStar=true").forward(request, response);

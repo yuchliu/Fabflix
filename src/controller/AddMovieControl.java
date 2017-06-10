@@ -68,7 +68,8 @@ public class AddMovieControl extends HttpServlet{
                     starFirstName, starLastName, starDob, starPhotoUrl, genreName};
             Integer[] outArgs = {Types.VARCHAR};
 
-            Object[] output = DBManager.executeStoredProcedure(procedure, spArgs, outArgs);
+            DBManager db = new DBManager();
+            Object[] output = db.executeStoredProcedure(procedure, spArgs, outArgs);
             error = true;
             message = "Please make sure you entered all input correctly.";
 
@@ -86,7 +87,7 @@ public class AddMovieControl extends HttpServlet{
 
             }
 
-            DBManager.close();
+            db.close();
         }
 
         request.setAttribute("error",error);

@@ -25,7 +25,8 @@ public class DatabaseControl extends HttpServlet {
         }
 
         String sql = "SELECT * FROM " + dbName + ";";
-        ResultSet rs = DBManager.executeQuery(sql);
+        DBManager db = new DBManager();
+        ResultSet rs = db.executeQuery(sql);
 
         try {
 
@@ -53,7 +54,7 @@ public class DatabaseControl extends HttpServlet {
         } catch (SQLException e) {
             throw new ServletException(e.getMessage());
         } finally {
-            DBManager.close();
+            db.close();
         }
 
     }

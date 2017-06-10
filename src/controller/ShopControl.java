@@ -27,8 +27,9 @@ public class ShopControl extends HttpServlet {
 
 			String[] params = {user.getId()};
 			String sql = "DELETE FROM carts WHERE customer_id = ?;";
-			DBManager.executeUpdate(sql, params);
-			DBManager.close();
+			DBManager db = new DBManager();
+			db.executeUpdate(sql, params);
+			db.close();
 
 		} else if(update != null && "true".equalsIgnoreCase((String) update)) {
 
@@ -43,15 +44,17 @@ public class ShopControl extends HttpServlet {
 				sql = "UPDATE carts SET amount = ? WHERE cart_id = ?;";
 			}
 
-			DBManager.executeUpdate(sql, params);
-			DBManager.close();
+			DBManager db = new DBManager();
+			db.executeUpdate(sql, params);
+			db.close();
 
 		} else {
 
 			String[] params = {user.getId(), request.getParameter("movie")};
 			String sql = "INSERT INTO carts (customer_id, movie_id) VALUE(?, ?) ON DUPLICATE KEY UPDATE amount = amount + 1;";
-			DBManager.executeUpdate(sql, params);
-			DBManager.close();
+			DBManager db = new DBManager();
+			db.executeUpdate(sql, params);
+			db.close();
 
 		}
 
